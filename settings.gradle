@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name='codename_hippopotamos'
+rootProject.name='hippo'

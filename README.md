@@ -17,4 +17,4 @@ Published on the F-Droid store: https://f-droid.org/it/packages/amazingrecording
 
 [<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
     alt="Get it on F-Droid"
-    height="80">](https://f-droid.org/it/packages/amazingrecordingstudios.codename_hippopotamos/)
+    height="80">](https://f-droid.org/it/packages/amazingrecordingstudios.hippo/)

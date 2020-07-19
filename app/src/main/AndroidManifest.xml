@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="it.amazingrecordingstudios.codename_hippopotamos"
+    package="it.amazingrecordingstudios.hippo"
     android:installLocation="preferExternal">
 
     <application
@@ -12,17 +12,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name="it.amazingrecordingstudios.codename_hippopotamos.AboutActivity"></activity>
-        <activity android:name="it.amazingrecordingstudios.codename_hippopotamos.CreditsActivity" />
-        <activity android:name="it.amazingrecordingstudios.codename_hippopotamos.PlaylistsActivity" />
-        <activity android:name="it.amazingrecordingstudios.codename_hippopotamos.QuotePagerActivity">
+        <activity android:name="it.amazingrecordingstudios.hippo.AboutActivity"></activity>
+        <activity android:name="it.amazingrecordingstudios.hippo.CreditsActivity" />
+        <activity android:name="it.amazingrecordingstudios.hippo.PlaylistsActivity" />
+        <activity android:name="it.amazingrecordingstudios.hippo.QuotePagerActivity">
             <intent-filter>
-                <action android:name="it.amazingrecordingstudios.codename_hippopotamos.DEMO" />
-                <action android:name="it.amazingrecordingstudios.codename_hippopotamos.PLAY" />
+                <action android:name="it.amazingrecordingstudios.hippo.DEMO" />
+                <action android:name="it.amazingrecordingstudios.hippo.PLAY" />
             </intent-filter>
         </activity>
-        <activity android:name="it.amazingrecordingstudios.codename_hippopotamos.QuoteActivity" />
-        <activity android:name="it.amazingrecordingstudios.codename_hippopotamos.MainActivity">
+        <activity android:name="it.amazingrecordingstudios.hippo.QuoteActivity" />
+        <activity android:name="it.amazingrecordingstudios.hippo.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
