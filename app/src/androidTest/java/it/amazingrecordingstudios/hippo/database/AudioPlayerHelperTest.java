@@ -108,6 +108,7 @@ public class AudioPlayerHelperTest {
                 }
                 else {
                     // FIXME test playthrough fails here, unexpected state PLAYING
+                    // test fails is non deterministic and happens in different tests
                     fail("Unexpected player state: "
                             + player._mediaPlayer.getCurrentPlayerState());
                 }
