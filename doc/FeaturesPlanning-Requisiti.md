@@ -1,6 +1,6 @@
 Next release:
 
-
+* Publish on Google Play
 * Fix volume too low on Android 10 devices
 * New field reference for a screen. I.e. Chantraine ethymological reference for a word.
 * add looking for readers/voice actors
