@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="it.collideorscopeapps.codename_hippopotamos"
+    package="it.amazingrecordingstudios.codename_hippopotamos"
     android:installLocation="preferExternal">
 
     <application
@@ -12,17 +12,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".AboutActivity"></activity>
-        <activity android:name=".CreditsActivity" />
-        <activity android:name=".PlaylistsActivity" />
-        <activity android:name=".QuotePagerActivity">
+        <activity android:name="it.amazingrecordingstudios.codename_hippopotamos.AboutActivity"></activity>
+        <activity android:name="it.amazingrecordingstudios.codename_hippopotamos.CreditsActivity" />
+        <activity android:name="it.amazingrecordingstudios.codename_hippopotamos.PlaylistsActivity" />
+        <activity android:name="it.amazingrecordingstudios.codename_hippopotamos.QuotePagerActivity">
             <intent-filter>
-                <action android:name="it.collideorscopeapps.codename_hippopotamos.DEMO" />
-                <action android:name="it.collideorscopeapps.codename_hippopotamos.PLAY" />
+                <action android:name="it.amazingrecordingstudios.codename_hippopotamos.DEMO" />
+                <action android:name="it.amazingrecordingstudios.codename_hippopotamos.PLAY" />
             </intent-filter>
         </activity>
-        <activity android:name=".QuoteActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name="it.amazingrecordingstudios.codename_hippopotamos.QuoteActivity" />
+        <activity android:name="it.amazingrecordingstudios.codename_hippopotamos.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
