@@ -107,6 +107,7 @@ public class AudioPlayerHelperTest {
                     Log.d(TAG,"Player has started switching tracks.");
                 }
                 else {
+                    // FIXME test playthrough fails here, unexpected state PLAYING
                     fail("Unexpected player state: "
                             + player._mediaPlayer.getCurrentPlayerState());
                 }
