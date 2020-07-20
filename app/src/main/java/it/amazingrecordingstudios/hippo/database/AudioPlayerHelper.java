@@ -2,6 +2,7 @@ package it.amazingrecordingstudios.hippo.database;
 
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
+import android.media.AudioAttributes;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.util.Log;
@@ -109,13 +110,8 @@ public class AudioPlayerHelper implements Closeable {
         public void setDefaultAudioAttributes() {
             if(android.os.Build.VERSION.SDK_INT
                     >= Build.VERSION_CODES.LOLLIPOP) {
-                final android.media.AudioAttributes DEFAULT_AUDIO_ATTRIBUTES
-                        = new android.media.AudioAttributes.Builder()
-                        .setUsage(android.media.AudioAttributes.USAGE_VOICE_COMMUNICATION)
-                        .setContentType(android.media.AudioAttributes.CONTENT_TYPE_SPEECH)
-                        .build();
 
-                this.setAudioAttributes(DEFAULT_AUDIO_ATTRIBUTES);
+                this.setAudioAttributes(getDefaultAudioAttributes());
             }
         }
 
@@ -725,9 +721,18 @@ public class AudioPlayerHelper implements Closeable {
         setUpMediaPlayer();
 
         if(!Utils.isNullOrEmpty(assetFileDescriptors)) {
-
             this._mediaPlayer.changeAudioFiles(assetFileDescriptors);
         }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    public static android.media.AudioAttributes getDefaultAudioAttributes() {
+        final AudioAttributes DEFAULT_AUDIO_ATTRIBUTES
+                = new AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_MEDIA)
+                .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                .build();
+        return DEFAULT_AUDIO_ATTRIBUTES;
     }
 
     @Keep

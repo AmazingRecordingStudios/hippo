@@ -3,6 +3,8 @@ package it.amazingrecordingstudios.hippo.database;
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
+import android.media.AudioAttributes;
+import android.media.AudioManager;
 import android.util.Log;
 
 import androidx.test.filters.Suppress;
@@ -325,6 +327,19 @@ public class AudioPlayerHelperTest {
 
         //should mock state of underling MediaPlayer
         throw new UnsupportedOperationException();
+    }
+
+    @Test
+    public void checkAudioAttributesForStreamVolume() throws IOException {
+        AudioPlayerHelper player = getInitializedMP();
+        android.media.AudioAttributes audioAttributes = AudioPlayerHelper.getDefaultAudioAttributes();
+
+        assertEquals("Using wrong volume control stream",
+                AudioManager.STREAM_MUSIC,audioAttributes.getVolumeControlStream());
+        assertEquals("Audio attributes set to wrong usage",
+                AudioAttributes.USAGE_MEDIA,audioAttributes.getUsage());
+        assertEquals("Audio attributes set to content type",
+                AudioAttributes.CONTENT_TYPE_MUSIC,audioAttributes.getContentType());
     }
 
     @Test@Ignore
