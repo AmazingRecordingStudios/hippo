@@ -22,17 +22,15 @@ public class HelloWorldEspressoTest {
     public ActivityTestRule<MainActivity> activityRule =
             new ActivityTestRule<>(MainActivity.class);
 
-    //TODO FIXME after each test return to main window
+    //TODO FIXME after each test return to main activity
 
     @Test
     public void exampleBasicEspressoTest() {
+
+        onView(withId(R.id.demoBtn)).perform(click());
+
         onView(withId(R.id.greekShortTextTV))
                 .perform(click())
                 .check(matches(isDisplayed()));
-    }
-
-    @Test
-    public void listGoesOverTheFold() {
-        onView(withText("Hello world!")).check(matches(isDisplayed()));
     }
 }

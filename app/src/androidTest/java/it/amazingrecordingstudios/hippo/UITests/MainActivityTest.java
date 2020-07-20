@@ -3,6 +3,7 @@ package it.amazingrecordingstudios.hippo.UITests;
 import android.app.Activity;
 import android.view.View;
 
+import androidx.test.espresso.Espresso;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -31,7 +32,6 @@ import static androidx.test.espresso.matcher.ViewMatchers.assertThat;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
-import static org.hamcrest.Matchers.is;
 
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest {
@@ -47,6 +47,17 @@ public class MainActivityTest {
         onView(ViewMatchers.withId(R.id.startPlayingBtn)).perform(click());
         onView(withText("Prepositions")).perform(click());
         onView(withId(R.id.pagerFragmanetConstraintLayout)).perform(swipeLeft());
+
+        //FIXME can't use context menu with espresso
+        //Return to main window after test
+        //onView(allOf(withId(R.id.pageCounterTV), withText("2 of 2"))).perform(click());
+        //openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+        //onView(withText("Back")).perform(click());
+        //onView(anyOf(withText("Back"), withId(R.id.backToPrevSection))).perform(click());
+        Espresso.pressBack();
+        Espresso.pressBack();
+
+        Espresso.pressBack();
     }
 
     @Suppress@Ignore//@Test
