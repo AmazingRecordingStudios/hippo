@@ -7,7 +7,9 @@ import androidx.test.espresso.Espresso;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.Suppress;
+
+import static androidx.test.espresso.assertion.ViewAssertions.doesNotExist;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.runner.lifecycle.Stage.RESUMED;
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitor;
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
@@ -15,7 +17,6 @@ import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,10 +29,10 @@ import it.amazingrecordingstudios.hippo.R;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.swipeLeft;
-import static androidx.test.espresso.matcher.ViewMatchers.assertThat;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
+import static org.hamcrest.Matchers.allOf;
 
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest {
@@ -43,28 +44,101 @@ public class MainActivityTest {
             new ActivityScenarioRule<>(MainActivity.class);
 
     @Test
-    public void playthrough() {
-        onView(ViewMatchers.withId(R.id.startPlayingBtn)).perform(click());
-        onView(withText("Prepositions")).perform(click());
-        onView(withId(R.id.pagerFragmanetConstraintLayout)).perform(swipeLeft());
-
-        //FIXME can't use context menu with espresso
-        //Return to main window after test
-        //onView(allOf(withId(R.id.pageCounterTV), withText("2 of 2"))).perform(click());
-        //openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
-        //onView(withText("Back")).perform(click());
-        //onView(anyOf(withText("Back"), withId(R.id.backToPrevSection))).perform(click());
-        Espresso.pressBack();
-        Espresso.pressBack();
-
-        Espresso.pressBack();
+    public void playthroughDemo() {
+        //TODO
     }
 
-    @Suppress@Ignore//@Test
+    @Test
+    public void playthroughPlaylistmenu() {
+        //TODO
+        //onView(...).check(matches(withText("Hello!")));
+        //onView(...).perform(scrollTo(), click());
+    }
+
+    @Test
+    public void playthrough() {
+        onView(ViewMatchers.withId(R.id.startPlayingBtn)).perform(click());
+        checkWeAreOnPlaylistMenu();
+
+        onView(withText("Prepositions")).perform(click());
+        checkPageFooter("1 of 2");
+        onView(withId(R.id.pagerFragmanetConstraintLayout)).perform(swipeLeft());
+        checkPageFooter("2 of 2");
+
+        useGoBackMenuOption("2 of 2");
+        checkWeAreOnPlaylistMenu();
+
+        //Return to main activity
+        Espresso.pressBack();
+        checkWeAreOnMainActivity();
+    }
+
+    void checkPageFooter(String expectedFooter) {
+        onView(allOf(withId(R.id.pageCounterTV), withText(expectedFooter)))
+                .check(matches(withText(expectedFooter)));
+    }
+
+    void checkWeAreOnMainActivity() {
+        // we are not on playlist menu
+        onView(withText("Prepositions")).check(doesNotExist());
+        onView(withText("Words, declensions")).check(doesNotExist());
+
+        //we are not in a quote fragment
+        onView(withId(R.id.pageCounterTV)).check(doesNotExist());
+
+        onView(withId(R.id.demoBtn)).check(matches(withText("Demo")));
+        onView(withId(R.id.startPlayingBtn)).check(matches(withText("Start playing")));
+    }
+
+    void checkWeAreOnPlaylistMenu() {
+        //we are not in a quote fragment
+        onView(withId(R.id.pageCounterTV)).check(doesNotExist());
+
+        //and we are not on main activity
+        onView(withId(R.id.demoBtn)).check(doesNotExist());
+        onView(withId(R.id.startPlayingBtn)).check(doesNotExist());
+
+        onView(withText("Prepositions")).check(matches(withText("Prepositions")));
+        onView(withText("Words, declensions")).check(matches(withText("Words, declensions")));
+    }
+
+    void useGoBackMenuOption(String pageFooterText) {
+        // Show the contextual menu
+        //onView(withId(R.id.pageCounterTV)).perform(click());
+        onView(allOf(withId(R.id.pageCounterTV), withText(pageFooterText))).perform(click());
+
+        // Click on the Back item.
+        //FIXME inconsistent sometimes espresso does not see the menu items
+        onView(withText("Back")).perform(click());
+    }
+
+    @Test
+    public void goBackMenuOption() {
+        onView(ViewMatchers.withId(R.id.startPlayingBtn)).perform(click());
+        onView(withText("Prepositions")).perform(click());
+
+        useGoBackMenuOption("1 of 2");
+
+        // Verify that we have really clicked on the icon by
+        // checking we are in previous activity
+        checkWeAreOnPlaylistMenu();
+
+        //Return to main activity
+        Espresso.pressBack();
+        checkWeAreOnMainActivity();
+    }
+
+    @Test
     public void playDemo() {
         onView(withId(R.id.demoBtn)).perform(click());
 
         final int expectedPageCount = 12;
+        String expectedPageFooter = "1 of " + expectedPageCount;
+        onView(withId(R.id.pageCounterTV)).check(matches(withText(expectedPageFooter)));
+
+        useGoBackMenuOption(expectedPageFooter);
+        //From demo, back should go directly to MainActivity, as there is no playlist menu
+        checkWeAreOnMainActivity();
 
         //QuotePagerActivity quotePagerActivity = (QuotePagerActivity)getCurrentActivity();
         //assertThat(quotePagerActivity.getScreenCount(), is(equalTo(expectedPageCount)));
@@ -80,7 +154,7 @@ public class MainActivityTest {
         };
         mainActivityTestRule.getScenario().onActivity(someAction);*/
 
-        int pagerFragment = R.id.pagerFragmanetConstraintLayout;
+        //int pagerFragment = R.id.pagerFragmanetConstraintLayout;
 
         /*for(int currentPage=1; currentPage<=expectedPageCount; currentPage++) {
             String expectedPageCounterText = currentPage + " of " + expectedPageCount;
@@ -94,7 +168,6 @@ public class MainActivityTest {
 
         //onView(withPageNumber(withId(R.id.pageCounterTV), 2)).perform(click());
         //onView(withId(R.id.pageCounterTV)).check(matches(withText("2 of 12")));
-
     }
 
     /*
