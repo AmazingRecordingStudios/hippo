@@ -139,35 +139,6 @@ public class MainActivityTest {
         useGoBackMenuOption(expectedPageFooter);
         //From demo, back should go directly to MainActivity, as there is no playlist menu
         checkWeAreOnMainActivity();
-
-        //QuotePagerActivity quotePagerActivity = (QuotePagerActivity)getCurrentActivity();
-        //assertThat(quotePagerActivity.getScreenCount(), is(equalTo(expectedPageCount)));
-
-        /*ActivityScenario.ActivityAction<QuotePagerActivity> someAction
-                = new ActivityScenario.ActivityAction<QuotePagerActivity>() {
-            @Override
-            public void perform(QuotePagerActivity activity) {
-                //startActivity(Intent(activity, MyOtherActivity::class.java))
-                activity.getScreenCount();
-                assertThat(activity.getScreenCount(), is(equalTo(expectedPageCount)));
-            }
-        };
-        mainActivityTestRule.getScenario().onActivity(someAction);*/
-
-        //int pagerFragment = R.id.pagerFragmanetConstraintLayout;
-
-        /*for(int currentPage=1; currentPage<=expectedPageCount; currentPage++) {
-            String expectedPageCounterText = currentPage + " of " + expectedPageCount;
-            //onView(withId(R.id.pageCounterTV)).check(matches(withText(expectedPageCounterText)));
-            onView(withText(expectedPageCounterText)).check(matches(isDisplayed()));
-
-            //androidx.test.espresso.PerformException: Error performing 'fast swipe' on view 'Animations or transitions are enabled on the target device.
-            onView(withPageNumber(withId(pagerFragment), currentPage))
-                    .perform(swipeLeft());
-        }*/
-
-        //onView(withPageNumber(withId(R.id.pageCounterTV), 2)).perform(click());
-        //onView(withId(R.id.pageCounterTV)).check(matches(withText("2 of 12")));
     }
 
     /*
