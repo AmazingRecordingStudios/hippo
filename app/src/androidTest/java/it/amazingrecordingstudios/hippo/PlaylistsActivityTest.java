@@ -21,9 +21,7 @@ public class PlaylistsActivityTest {
     @Test
     public void doNotShowDisabledPlaylistOnMenu() {
 
-
         QuotesProvider quotesProvider = new QuotesProvider();
-
 
         Context appContext;
 
@@ -49,7 +47,6 @@ public class PlaylistsActivityTest {
             } else {
                 assertTrue(plNames.contains(pl.getDescription()));
             }
-
         }
     }
 }
