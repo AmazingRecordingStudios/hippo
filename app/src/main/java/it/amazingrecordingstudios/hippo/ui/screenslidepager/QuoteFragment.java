@@ -23,7 +23,7 @@ import it.amazingrecordingstudios.hippo.CreditsActivity;
 import it.amazingrecordingstudios.hippo.Globals;
 import it.amazingrecordingstudios.hippo.utils.MyHtmlTagHandler;
 import it.amazingrecordingstudios.hippo.R;
-import it.amazingrecordingstudios.hippo.database.AudioPlayerHelper;
+import it.amazingrecordingstudios.hippo.audioplayer.AudioPlayerHelper;
 import it.amazingrecordingstudios.hippo.model.Quote;
 import it.amazingrecordingstudios.hippo.model.Schermata;
 import it.amazingrecordingstudios.hippo.utils.Utils;

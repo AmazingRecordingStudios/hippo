@@ -162,7 +162,7 @@ public class DBUtils {
         return isDBEmpty;
     }
 
-    static String[] filterNonNullElements(String[] arrayList) {
+    public static String[] filterNonNullElements(String[] arrayList) {
         ArrayList<String> nonNullElementsArrayList = new ArrayList<>();
         for(String element:arrayList) {
             if(element != null) {

@@ -14,7 +14,7 @@ import android.view.KeyEvent;
 import java.io.IOException;
 import java.util.TreeMap;
 
-import it.amazingrecordingstudios.hippo.database.AudioPlayerHelper;
+import it.amazingrecordingstudios.hippo.audioplayer.AudioPlayerHelper;
 import it.amazingrecordingstudios.hippo.database.QuotesProvider;
 import it.amazingrecordingstudios.hippo.model.Schermata;
 import it.amazingrecordingstudios.hippo.ui.screenslidepager.QuoteFragment;

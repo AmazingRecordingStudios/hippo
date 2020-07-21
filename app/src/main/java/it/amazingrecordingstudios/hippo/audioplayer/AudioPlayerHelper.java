@@ -1,4 +1,4 @@
-package it.amazingrecordingstudios.hippo.database;
+package it.amazingrecordingstudios.hippo.audioplayer;
 
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import it.amazingrecordingstudios.hippo.database.DBUtils;
 import it.amazingrecordingstudios.hippo.utils.Utils;
 
 public class AudioPlayerHelper implements Closeable {

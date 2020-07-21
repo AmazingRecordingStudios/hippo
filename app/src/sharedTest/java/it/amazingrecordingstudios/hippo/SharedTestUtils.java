@@ -9,8 +9,8 @@ import android.util.Log;
 import java.lang.reflect.Field;
 import java.util.TreeMap;
 
-import it.amazingrecordingstudios.hippo.database.AudioPlayerHelper;
-import it.amazingrecordingstudios.hippo.database.AudioPlayerHelper.PlayerState;
+import it.amazingrecordingstudios.hippo.audioplayer.AudioPlayerHelper;
+import it.amazingrecordingstudios.hippo.audioplayer.AudioPlayerHelper.PlayerState;
 import it.amazingrecordingstudios.hippo.database.QuotesProvider;
 import it.amazingrecordingstudios.hippo.model.Playlist;
 import it.amazingrecordingstudios.hippo.model.Quote;
