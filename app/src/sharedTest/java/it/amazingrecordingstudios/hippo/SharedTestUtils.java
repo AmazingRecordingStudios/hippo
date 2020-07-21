@@ -11,6 +11,7 @@ import java.util.TreeMap;
 
 import it.amazingrecordingstudios.hippo.audioplayer.AudioPlayerHelper;
 import it.amazingrecordingstudios.hippo.audioplayer.AudioPlayerHelper.PlayerState;
+import it.amazingrecordingstudios.hippo.audioplayer.SafeLoggableMediaPlayer;
 import it.amazingrecordingstudios.hippo.database.QuotesProvider;
 import it.amazingrecordingstudios.hippo.model.Playlist;
 import it.amazingrecordingstudios.hippo.model.Quote;
@@ -246,7 +247,7 @@ public class SharedTestUtils {
         Class<AudioPlayerHelper> audioPlayerHelperClass
                 = AudioPlayerHelper.class;
 
-        AudioPlayerHelper.SafeLoggableMediaPlayer player
+        SafeLoggableMediaPlayer player
                 = getFieldValue(
                 audioPlayerHelperClass,audioPlayerHelper,MPLAYER_FIELD_NAME);
 
