@@ -431,6 +431,8 @@ public class AudioPlayerHelperTest {
     @Test
     public void playNext() throws IOException {
 
+        //FIXME test sometimes failing; inconsistencies in mediaplayer testing
+
         final String TAG = "playNext";
 
         //TODO
