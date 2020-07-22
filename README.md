@@ -4,6 +4,8 @@
 
 Discover short phrases from classic Greek authors and __hear them spoken__. You don't find such phrases among the Romans.
 
+We are looking for more people to record their voices while reading Greek.
+
 Video preview [here](https://youtu.be/E-xyT1h9bJU).
 
 | Screen preview: |
