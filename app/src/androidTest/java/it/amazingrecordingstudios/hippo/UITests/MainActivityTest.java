@@ -65,7 +65,12 @@ public class MainActivityTest {
         onView(withId(R.id.pagerFragmanetConstraintLayout)).perform(swipeLeft());
         checkPageFooter("2 of 2");
 
-        useGoBackMenuOption("2 of 2");
+        //FIXME contextual menu options not detected in espresso after swipe left
+        //useGoBackMenuOption("2 of 2");
+        Espresso.pressBack();
+        checkPageFooter("1 of 2");
+        Espresso.pressBack();
+
         checkWeAreOnPlaylistMenu();
 
         //Return to main activity
@@ -115,8 +120,10 @@ public class MainActivityTest {
     @Test
     public void goBackMenuOption() {
         onView(ViewMatchers.withId(R.id.startPlayingBtn)).perform(click());
-        onView(withText("Prepositions")).perform(click());
+        checkWeAreOnPlaylistMenu();
 
+        onView(withText("Prepositions")).perform(click());
+        checkPageFooter("1 of 2");
         useGoBackMenuOption("1 of 2");
 
         // Verify that we have really clicked on the icon by
