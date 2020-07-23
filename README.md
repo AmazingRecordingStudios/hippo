@@ -2,7 +2,7 @@
 
 *Ancient greek study tool*
 
-Discover short phrases from classic Greek authors and __hear them spoken__. You don't find such phrases among the Romans.
+Discover short phrases from classic Greek authors and __hear them spoken__. *You don't find such phrases among the Romans*.
 
 We are looking for more people to record their voices while reading Greek (current audio files are taken from librivox). Please get in touch to join and contribute.
 
