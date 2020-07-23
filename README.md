@@ -1,6 +1,6 @@
 # Hippo
 
-*Ancient greek study tool*
+*Ancient Greek study tool*
 
 Discover short phrases from classic Greek authors and __hear them spoken__ in Ancient Greek. *You don't find such phrases among the Romans*.
 
