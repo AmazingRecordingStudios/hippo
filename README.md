@@ -1,4 +1,4 @@
-# Hippopotamos
+# Hippo
 
 *Ancient greek study tool*
 
