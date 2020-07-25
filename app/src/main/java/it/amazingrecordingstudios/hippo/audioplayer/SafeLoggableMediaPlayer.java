@@ -4,8 +4,39 @@ import android.media.MediaPlayer;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public abstract class SafeLoggableMediaPlayer extends LoggableMediaPlayer {
+
+    public final static List<AudioPlayerHelper.PlayerState> validStatesTowardsStop;
+    public final static List<AudioPlayerHelper.PlayerState> validStatesTowardsPrepareAsynch;
+    public final static Map<AudioPlayerHelper.PlayerState,
+            List<AudioPlayerHelper.PlayerState>> validTransitions;
+    static {
+        {   AudioPlayerHelper.PlayerState[] validStatesTowardsStopTmp
+                = {AudioPlayerHelper.PlayerState.PREPARED,
+                AudioPlayerHelper.PlayerState.PREPARING,
+                AudioPlayerHelper.PlayerState.PLAYING,
+                AudioPlayerHelper.PlayerState.STOPPED,
+                AudioPlayerHelper.PlayerState.PAUSED,
+                AudioPlayerHelper.PlayerState.COMPLETED};
+            validStatesTowardsStop = Arrays.asList(validStatesTowardsStopTmp);
+        }
+
+        {
+            AudioPlayerHelper.PlayerState[] validStatesTowardsPrepareAsynchTmp
+                    = {AudioPlayerHelper.PlayerState.INITIALIZED,
+                    AudioPlayerHelper.PlayerState.STOPPED};
+            validStatesTowardsPrepareAsynch = Arrays.asList(validStatesTowardsPrepareAsynchTmp);
+        }
+
+        validTransitions = new TreeMap<>();
+        validTransitions.put(AudioPlayerHelper.PlayerState.STOPPED, validStatesTowardsStop);
+        validTransitions.put(AudioPlayerHelper.PlayerState.PREPARING, validStatesTowardsPrepareAsynch);
+    }
 
     protected boolean receivedCallsWhilePreparing;
 
@@ -54,7 +85,7 @@ public abstract class SafeLoggableMediaPlayer extends LoggableMediaPlayer {
 
     public boolean isStateValidForPrepareAsynch() {
 
-        return AudioPlayerHelper.validStatesTowardsPrepareAsynch.contains(getCurrentPlayerState());
+        return validStatesTowardsPrepareAsynch.contains(getCurrentPlayerState());
     }
 
     public boolean isStateInValidForStop() {
@@ -69,7 +100,7 @@ public abstract class SafeLoggableMediaPlayer extends LoggableMediaPlayer {
 
     public boolean isValidStateForStop(AudioPlayerHelper.PlayerState state) {
 
-        return AudioPlayerHelper.validStatesTowardsStop.contains(state);
+        return validStatesTowardsStop.contains(state);
     }
 
     protected void tryPrepareAsynch() {

@@ -11,13 +11,8 @@ import androidx.annotation.Keep;
 import androidx.annotation.RequiresApi;
 
 import java.io.Closeable;
-import java.io.FileDescriptor;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
 import it.amazingrecordingstudios.hippo.database.DBUtils;
 import it.amazingrecordingstudios.hippo.utils.Utils;
@@ -27,27 +22,6 @@ public class AudioPlayerHelper implements Closeable {
     public enum PlayerState { /*UNKNOWN,*/ IDLE, INITIALIZED,
         PREPARING, PREPARED, PLAYING, PAUSED, COMPLETED,
         STOPPED, ERROR, END_RELEASED_UNAVAILABLE
-    }
-
-    public final static List<PlayerState> validStatesTowardsStop;
-    public final static List<PlayerState> validStatesTowardsPrepareAsynch;
-    public final static Map<PlayerState, List<PlayerState>> validTransitions;
-    static {
-        {   PlayerState[] validStatesTowardsStopTmp
-                    = {PlayerState.PREPARED, PlayerState.PREPARING, PlayerState.PLAYING,
-                    PlayerState.STOPPED, PlayerState.PAUSED, PlayerState.COMPLETED};
-            validStatesTowardsStop = Arrays.asList(validStatesTowardsStopTmp);
-        }
-
-        {
-            PlayerState[] validStatesTowardsPrepareAsynchTmp
-                    = {PlayerState.INITIALIZED,PlayerState.STOPPED};
-            validStatesTowardsPrepareAsynch = Arrays.asList(validStatesTowardsPrepareAsynchTmp);
-        }
-
-        validTransitions = new TreeMap<>();
-        validTransitions.put(PlayerState.STOPPED, validStatesTowardsStop);
-        validTransitions.put(PlayerState.PREPARING, validStatesTowardsPrepareAsynch);
     }
 
     public static final String TAG = "AudioPlayerHelper";
