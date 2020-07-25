@@ -1,0 +1,1 @@
+This app does not track or treat any user or device data.
