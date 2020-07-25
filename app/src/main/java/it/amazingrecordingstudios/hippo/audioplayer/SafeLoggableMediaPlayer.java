@@ -11,6 +11,8 @@ import java.util.TreeMap;
 
 public abstract class SafeLoggableMediaPlayer extends LoggableMediaPlayer {
 
+    public static final String TAG = "SLMediaPlayer";
+
     public final static List<PlayerState> validStatesTowardsStop;
     public final static List<PlayerState> validStatesTowardsPrepareAsynch;
     public final static Map<PlayerState,
@@ -56,7 +58,7 @@ public abstract class SafeLoggableMediaPlayer extends LoggableMediaPlayer {
             this.callsWhilePreparing.add(nextCall);
             this.receivedCallsWhilePreparing = true;
         } else {
-            Log.e(AudioPlayerHelper.TAG,"Trying to enqueue call while not in preparing state");
+            Log.e(TAG,"Trying to enqueue call while not in preparing state");
         }
     }
 
@@ -69,7 +71,7 @@ public abstract class SafeLoggableMediaPlayer extends LoggableMediaPlayer {
             } else if(stateCall == PlayerState.PLAYING) {
                 this.play();
             } else {
-                Log.d(AudioPlayerHelper.TAG,"Ignoring call queued while preparing: "
+                Log.d(TAG,"Ignoring call queued while preparing: "
                         + stateCall);
                 //TODO handle more states
             }
@@ -109,7 +111,7 @@ public abstract class SafeLoggableMediaPlayer extends LoggableMediaPlayer {
             try {
                 this.prepareAsync();
             } catch (IllegalStateException e) {
-                Log.e(AudioPlayerHelper.TAG,e.toString());
+                Log.e(TAG,e.toString());
                 processQueuedCallsWhilePreparing();
             }
         }
@@ -121,7 +123,7 @@ public abstract class SafeLoggableMediaPlayer extends LoggableMediaPlayer {
         } else if(this.isPaused()) {
             this.resume();
         } else {
-            Log.e(AudioPlayerHelper.TAG,"Trying to pauseOrResume in an unaccepted state: "
+            Log.e(TAG,"Trying to pauseOrResume in an unaccepted state: "
                     + this.getCurrentPlayerState());
         }
     }
@@ -135,7 +137,7 @@ public abstract class SafeLoggableMediaPlayer extends LoggableMediaPlayer {
         }
 
         if(this.isPreparing()) {
-            Log.d(AudioPlayerHelper.TAG,"Queuing pause() call received while in PREPARING state, to avoid error");
+            Log.d(TAG,"Queuing pause() call received while in PREPARING state, to avoid error");
             this.enqueueCall(PlayerState.PAUSED);
             return;
         }
@@ -146,10 +148,10 @@ public abstract class SafeLoggableMediaPlayer extends LoggableMediaPlayer {
         }
 
         if(this.isStopped()) {
-            Log.d(AudioPlayerHelper.TAG,"Trying to pause while stopped, staying stopped");
+            Log.d(TAG,"Trying to pause while stopped, staying stopped");
         }
 
-        Log.e(AudioPlayerHelper.TAG,"Trying to pause in an unaccepted state: "
+        Log.e(TAG,"Trying to pause in an unaccepted state: "
                 + this.getCurrentPlayerState());
 
     }
@@ -158,7 +160,7 @@ public abstract class SafeLoggableMediaPlayer extends LoggableMediaPlayer {
         if(this.isPaused()) {
             this.start();
         } else  {
-            Log.e(AudioPlayerHelper.TAG,"Trying to resume when not paused: "
+            Log.e(TAG,"Trying to resume when not paused: "
                     + this.getCurrentPlayerState());
         }
     }
@@ -167,7 +169,7 @@ public abstract class SafeLoggableMediaPlayer extends LoggableMediaPlayer {
         @Override
         public boolean onError(MediaPlayer mp, int what, int extra) {
 
-            Log.e(AudioPlayerHelper.TAG,"what: " + what
+            Log.e(TAG,"what: " + what
                     + " extra: " + extra + " " + mp.toString());
 
             return false;
