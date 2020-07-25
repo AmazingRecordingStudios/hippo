@@ -103,8 +103,13 @@ public class AudioPlayerHelperTest {
             } else {
                 if(SharedTestUtils.hasCompletedPlaying(player)
                         || SharedTestUtils.isIdle(player)
-                        || SharedTestUtils.isInitialized(player)) {
+                        || SharedTestUtils.isInitialized(player)
+                        || SharedTestUtils.isPreparing(player)) {
                     Log.d(TAG,"Player has started switching tracks.");
+
+                    //TODO Add functionality to wrapper to keep track of:
+                    // playing file x of n, and check that during testing
+                    //TODO: proper asynch testing (avoid thread sleep?)
                 }
                 else {
                     // FIXME some tests sometimes fail here, unexpected state PLAYING
