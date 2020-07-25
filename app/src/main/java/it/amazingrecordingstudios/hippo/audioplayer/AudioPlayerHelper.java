@@ -89,9 +89,6 @@ public class AudioPlayerHelper implements Closeable {
         this._mediaPlayer = new MediaPlayerWrapperMultipleFiles();
         //redundant: _mediaPlayer.setCurrentPlayerState(PlayerState.IDLE);
 
-        this._mediaPlayer.setListeners(_mediaPlayer.onPreparedListener,
-                _mediaPlayer.onCompletionListener,_mediaPlayer.onErrorListener);
-
         if(android.os.Build.VERSION.SDK_INT
                 >= Build.VERSION_CODES.LOLLIPOP) {
             setMPDefaultAudioAttributes(this._mediaPlayer);

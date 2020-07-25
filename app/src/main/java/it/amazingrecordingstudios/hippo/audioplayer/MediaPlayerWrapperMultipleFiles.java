@@ -18,6 +18,10 @@ public class MediaPlayerWrapperMultipleFiles
 
     public MediaPlayerWrapperMultipleFiles() {
         super();
+
+        this.setListeners(onPreparedListener,
+                onCompletionListener,
+                onErrorListener);
     }
 
     public int filesCount() {
