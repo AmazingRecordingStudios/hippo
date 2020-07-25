@@ -5,6 +5,7 @@ import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
+import android.os.Build;
 import android.util.Log;
 
 import androidx.test.filters.Suppress;
@@ -327,6 +328,11 @@ public class AudioPlayerHelperTest {
 
     @Test
     public void checkAudioAttributesForStreamVolume() throws IOException {
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            return;
+        }
+
         AudioPlayerHelper player = getInitializedMP();
         android.media.AudioAttributes audioAttributes = AudioPlayerHelper.getDefaultAudioAttributes();
 
