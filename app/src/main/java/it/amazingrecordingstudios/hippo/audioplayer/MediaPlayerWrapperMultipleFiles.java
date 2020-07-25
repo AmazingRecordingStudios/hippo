@@ -15,11 +15,9 @@ public class MediaPlayerWrapperMultipleFiles
     public static final String TAG = "MPWMultipleFiles";
     AssetFileDescriptor[] assetFileDescriptors;
     private boolean _lastFileHasPlayed;
-    private final AudioPlayerHelper audioPlayerHelper;
 
-    public MediaPlayerWrapperMultipleFiles(AudioPlayerHelper audioPlayerHelper) {
+    public MediaPlayerWrapperMultipleFiles() {
         super();
-        this.audioPlayerHelper = audioPlayerHelper;
     }
 
     public int filesCount() {
@@ -59,9 +57,9 @@ public class MediaPlayerWrapperMultipleFiles
     }
 
     public void setLastFileHasPlayed(boolean hasPlayed) {
-        Log.d(AudioPlayerHelper.TAG,"setting _lastFileHasPlayed to " + hasPlayed
+        Log.d(TAG,"setting _lastFileHasPlayed to " + hasPlayed
                 + " was " + this._lastFileHasPlayed);
-        Log.d(AudioPlayerHelper.TAG,"there are " + this.filesCount()
+        Log.d(TAG,"there are " + this.filesCount()
                 + " audioFiles, last idx is " + this.getLastTrackIdx());
 
         this._lastFileHasPlayed = hasPlayed;
@@ -79,13 +77,13 @@ public class MediaPlayerWrapperMultipleFiles
 
         //This might not be necessary
         if(!this.isIdle()) {
-            Log.e(AudioPlayerHelper.TAG,"Previous call to reset was not successful, currently in state"
+            Log.e(TAG,"Previous call to reset was not successful, currently in state"
                     + getCurrentPlayerState() + " , can't call setDataSource");
             return;
         }
 
         if(assetFileDescriptor == null) {
-            Log.d(AudioPlayerHelper.TAG,"Null File Descriptor, skipping setDataSource, staying in IDLE");
+            Log.d(TAG,"Null File Descriptor, skipping setDataSource, staying in IDLE");
             return;
         }
 
@@ -97,13 +95,13 @@ public class MediaPlayerWrapperMultipleFiles
                 compatibleSetDataSource(this,assetFileDescriptor);
             }
         } catch (IllegalArgumentException e) {
-            Log.e(AudioPlayerHelper.TAG,e.toString());
+            Log.e(TAG,e.toString());
         } catch (IOException e) {
-            Log.e(AudioPlayerHelper.TAG,e.toString());
+            Log.e(TAG,e.toString());
         } catch (IllegalStateException e) {
             //TODO should we change to error state?
             //_mediaPlayer.setCurrentPlayerState(PlayerState.ERROR)
-            Log.e(AudioPlayerHelper.TAG,e.toString());
+            Log.e(TAG,e.toString());
         }
     }
 
@@ -163,7 +161,7 @@ public class MediaPlayerWrapperMultipleFiles
             //TODO FIXME this sometimes happen, should handle properly and add tests
             // possibly because inconsistent state after changing audio files
             // (fewer in number)
-            Log.e(AudioPlayerHelper.TAG,"Play next: track index " + trackIdx
+            Log.e(TAG,"Play next: track index " + trackIdx
                     + " out of bounds " + assetFileDescriptors);
             return;
         }
@@ -179,7 +177,7 @@ public class MediaPlayerWrapperMultipleFiles
     public void play() {
 
         if(Utils.isNullOrEmpty(this.assetFileDescriptors)) {
-            Log.e(AudioPlayerHelper.TAG,"No files to play " + this.assetFileDescriptors);
+            Log.e(TAG,"No files to play " + this.assetFileDescriptors);
             return;
         }
 
@@ -188,7 +186,7 @@ public class MediaPlayerWrapperMultipleFiles
             // first playback
             this.firstFilePlayedAtLeastOnce = true;
             initCurrentTrackIdx();
-            Log.d(AudioPlayerHelper.TAG,"Play request accepted, first play or idle");
+            Log.d(TAG,"Play request accepted, first play or idle");
             playNext(getCurrentTrackIdx());
         } else if(isPaused()) {
             this.start();
@@ -200,12 +198,12 @@ public class MediaPlayerWrapperMultipleFiles
 
             // we start the loop of audio tracks again
             initCurrentTrackIdx();
-            Log.d(AudioPlayerHelper.TAG,"Play request accepted from stopped");
+            Log.d(TAG,"Play request accepted from stopped");
             playNext(getCurrentTrackIdx());
         } else if(this.hasCompletedPlaying()) {
 
             //we should start back from the first file
-            Log.d(AudioPlayerHelper.TAG,"Play request after completed state, replaying from first track");
+            Log.d(TAG,"Play request after completed state, replaying from first track");
             this.initCurrentTrackIdx();
             playNext(getCurrentTrackIdx());
 
@@ -220,7 +218,7 @@ public class MediaPlayerWrapperMultipleFiles
         else {
             String msg = "Play request non accepted state, ignoring. State: "
                     + this.getCurrentPlayerState();
-            Log.v(AudioPlayerHelper.TAG,msg);
+            Log.v(TAG,msg);
         }
 
         // gets a series of audio files (asset file descriptors)
@@ -251,10 +249,10 @@ public class MediaPlayerWrapperMultipleFiles
         if(this.isStateInValidForStop()) {
             String msg = "Stop request from non accepted state, ignoring. State: "
                     + this.getCurrentPlayerState();
-            Log.e(AudioPlayerHelper.TAG,msg);
+            Log.e(TAG,msg);
 
         } else if(this.isPreparing()) {
-            Log.d(AudioPlayerHelper.TAG,"Queuing stop() call received while in PREPARING state, to avoid error");
+            Log.d(TAG,"Queuing stop() call received while in PREPARING state, to avoid error");
             this.enqueueCall(PlayerState.STOPPED);
         } else {
             super.stop();
@@ -275,7 +273,7 @@ public class MediaPlayerWrapperMultipleFiles
                     assetFileDescriptor.close();
                 }
             } catch (IOException e) {
-                Log.e(AudioPlayerHelper.TAG,e.toString());
+                Log.e(TAG,e.toString());
             }
         }
     }
@@ -311,7 +309,7 @@ public class MediaPlayerWrapperMultipleFiles
         @Override
         public void onCompletion(MediaPlayer mp) {
 
-            audioPlayerHelper._mediaPlayer.setCurrentPlayerState(PlayerState.COMPLETED);
+            setCurrentPlayerState(PlayerState.COMPLETED);
             //FIXME this stop() might be causing the error:
             //E/MediaPlayer: stop called in state 0
             //E/MediaPlayer: error (-38, 0)
@@ -327,10 +325,10 @@ public class MediaPlayerWrapperMultipleFiles
             // seems to be assigned incorrectly)
             setLastFileHasPlayed(getCurrentTrackIdx() == getLastTrackIdx());
             if(!hasLastFilePlayed()) {
-                Log.d(AudioPlayerHelper.TAG,"first track has played but there are more");
+                Log.d(TAG,"first track has played but there are more");
                 //play next
                 final boolean KEEP_AUDIO_FILES = true;
-                audioPlayerHelper._mediaPlayer.reset(KEEP_AUDIO_FILES);
+                reset(KEEP_AUDIO_FILES);
                 //redundant: _mediaPlayer.setCurrentPlayerState(PlayerState.IDLE);
                 incrementCurrentTrackIdx();
                 playNext(getCurrentTrackIdx());
@@ -342,7 +340,7 @@ public class MediaPlayerWrapperMultipleFiles
                 // ..
                 // only now we can accept another call to play()
                 // otherwise we ignore them
-                Log.d(AudioPlayerHelper.TAG,"last track has played.");
+                Log.d(TAG,"last track has played.");
             }
             // we should check if we should play next track
             // or if we have already played the last one

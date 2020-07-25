@@ -18,6 +18,8 @@ import it.amazingrecordingstudios.hippo.utils.Utils;
 
 public class AudioPlayerHelper implements Closeable {
 
+    //TODO implement as Singleton class
+
     public static final String TAG = "AudioPlayerHelper";
 
     public boolean isPlaying() {
@@ -84,7 +86,7 @@ public class AudioPlayerHelper implements Closeable {
 
     private void setUpMediaPlayer() {
 
-        this._mediaPlayer = new MediaPlayerWrapperMultipleFiles(this);
+        this._mediaPlayer = new MediaPlayerWrapperMultipleFiles();
         //redundant: _mediaPlayer.setCurrentPlayerState(PlayerState.IDLE);
 
         this._mediaPlayer.setListeners(_mediaPlayer.onPreparedListener,
