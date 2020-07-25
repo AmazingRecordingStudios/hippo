@@ -3,7 +3,6 @@ package it.amazingrecordingstudios.hippo.audioplayer;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.media.AudioAttributes;
-import android.media.MediaPlayer;
 import android.os.Build;
 import android.util.Log;
 
@@ -16,7 +15,6 @@ import java.util.ArrayList;
 
 import it.amazingrecordingstudios.hippo.database.DBUtils;
 import it.amazingrecordingstudios.hippo.utils.Utils;
-import it.amazingrecordingstudios.hippo.audioplayer.LoggableMediaPlayer.PlayerState;
 
 public class AudioPlayerHelper implements Closeable {
 
