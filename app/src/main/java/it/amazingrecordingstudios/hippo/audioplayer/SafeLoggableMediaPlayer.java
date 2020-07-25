@@ -47,7 +47,7 @@ public abstract class SafeLoggableMediaPlayer extends LoggableMediaPlayer {
     public SafeLoggableMediaPlayer() {
         super();
 
-        this.receivedCallsWhilePreparing = false;
+        this.receivedCallsWhilePreparing = false;//TODO recheck this
         this.callsWhilePreparing = new ArrayList<>();
     }
 

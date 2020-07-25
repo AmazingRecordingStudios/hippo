@@ -84,11 +84,7 @@ public class QuotePagerActivity extends FragmentActivity {
             Log.e(TAG,"No action specified");
         }
 
-        try {
-            this.audioPlayer = new AudioPlayerHelper();
-        } catch (IOException e) {
-            Log.e(TAG,e.toString());
-        }
+        this.audioPlayer = new AudioPlayerHelper();
 
         pagerAdapter = new QuotePagerAdapter(this);
         viewPager.setAdapter(pagerAdapter);

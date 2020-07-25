@@ -41,7 +41,8 @@ public class AudioPlayerHelperTest {
     @Test
     public void stopWhilePreparing() throws IOException{
         AudioPlayerHelper player = getPreparingMP();
-        Assert.assertEquals(PlayerState.PREPARING,player._mediaPlayer.getCurrentPlayerState());
+        
+        Assert.assertEquals(PlayerState.PREPARING,SharedTestUtils.getCurrentPlayerState(player));
 
         player.stop();
         waitForStateWhilePreparing(player, PlayerState.STOPPED);
@@ -49,9 +50,9 @@ public class AudioPlayerHelperTest {
 
     @Test
     public void pauseWhilePreparing() throws IOException{
-
+                
         AudioPlayerHelper player = getPreparingMP();
-        Assert.assertEquals(PlayerState.PREPARING,player._mediaPlayer.getCurrentPlayerState());
+        Assert.assertEquals(PlayerState.PREPARING,SharedTestUtils.getCurrentPlayerState(player));
 
         player.pause();
         waitForStateWhilePreparing(player, PlayerState.PAUSED);
@@ -63,7 +64,7 @@ public class AudioPlayerHelperTest {
 
         if(!isPreparingOrPlaying(player)) {
             Assert.fail("(first) track is not preparing or playing: "
-                    + player._mediaPlayer.getCurrentPlayerState());
+                    + SharedTestUtils.getCurrentPlayerState(player));
         }
 
         int maxAttempts = 20;
@@ -85,9 +86,9 @@ public class AudioPlayerHelperTest {
     private void waitForTrackSwitch(AudioPlayerHelper player) {
         final String TAG = "waitForTrackSwitch";
 
-        if(!(player.isPlaying() || player._mediaPlayer.hasCompletedPlaying())) {
+        if(!(player.isPlaying() || SharedTestUtils.hasCompletedPlaying(player))) {
             Assert.fail("Player is not playing or completed: "
-                    + player._mediaPlayer.getCurrentPlayerState());
+                    + SharedTestUtils.getCurrentPlayerState(player));
         }
 
         int maxAttempts = 20;
@@ -100,16 +101,16 @@ public class AudioPlayerHelperTest {
                     Log.e(TAG,e.toString());
                 }
             } else {
-                if(player._mediaPlayer.hasCompletedPlaying()
-                        || player._mediaPlayer.isIdle()
-                        || player._mediaPlayer.isInitialized()) {
+                if(SharedTestUtils.hasCompletedPlaying(player)
+                        || SharedTestUtils.isIdle(player)
+                        || SharedTestUtils.isInitialized(player)) {
                     Log.d(TAG,"Player has started switching tracks.");
                 }
                 else {
                     // FIXME some tests sometimes fail here, unexpected state PLAYING
                     // test fails is non deterministic and happens in different tests
                     Assert.fail("Unexpected player state: "
-                            + player._mediaPlayer.getCurrentPlayerState());
+                            + SharedTestUtils.getCurrentPlayerState(player));
                 }
                 break;
             }
@@ -117,15 +118,15 @@ public class AudioPlayerHelperTest {
     }
 
     private boolean isInTrackSwitchingStates(AudioPlayerHelper player) {
-        return player._mediaPlayer.hasCompletedPlaying()
-                || player._mediaPlayer.isIdle()
-                || player._mediaPlayer.isInitialized();
+        return SharedTestUtils.hasCompletedPlaying(player)
+                || SharedTestUtils.isIdle(player)
+                || SharedTestUtils.isInitialized(player);
     }
 
     private boolean isPreparingOrPlaying(AudioPlayerHelper player) {
 
-        return player._mediaPlayer.isPreparing()
-                || player._mediaPlayer.isPlaying();
+        return SharedTestUtils.isPreparing(player)
+                || SharedTestUtils.isPlaying(player);
     }
 
     private void waitForNextTrackPreparing(AudioPlayerHelper player) {
@@ -156,7 +157,7 @@ public class AudioPlayerHelperTest {
                 }
                 else {
                     Assert.fail("Unexpected player state: "
-                            + player._mediaPlayer.getCurrentPlayerState());
+                            + SharedTestUtils.getCurrentPlayerState(player));
                 }
                 break;
             }
@@ -171,7 +172,7 @@ public class AudioPlayerHelperTest {
         int maxAttempts = 20;
         int waitDurationMillis = 100;
         for(int attempts=0; attempts<maxAttempts; attempts++) {
-            if(player._mediaPlayer.isPreparing()) {
+            if(SharedTestUtils.isPreparing(player)) {
                 try {
                     Thread.sleep(waitDurationMillis);
                 } catch (InterruptedException e) {
@@ -183,11 +184,11 @@ public class AudioPlayerHelperTest {
             }
         }
 
-        if(player._mediaPlayer.isPreparing()) {
+        if(SharedTestUtils.isPreparing(player)) {
             Log.e(TAG,"Unable to wait for player to complete");
             Assert.fail("Unable to wait for player to complete");
         } else {
-            Assert.assertEquals(expectedState,player._mediaPlayer.getCurrentPlayerState());
+            Assert.assertEquals(expectedState,SharedTestUtils.getCurrentPlayerState(player));
         }
     }
 
@@ -201,7 +202,7 @@ public class AudioPlayerHelperTest {
         // but no crash, and the resulting state is appropriate
 
         AudioPlayerHelper player = getIdleMP();
-        Assert.assertEquals(PlayerState.IDLE,player._mediaPlayer.getCurrentPlayerState());
+        Assert.assertEquals(PlayerState.IDLE,SharedTestUtils.getCurrentPlayerState(player));
 
         try {
             player.stop();
@@ -209,48 +210,48 @@ public class AudioPlayerHelperTest {
             Assert.fail("Media player exception when stopping from idle: " + e.toString());
         }
 
-        Assert.assertEquals(PlayerState.IDLE,player._mediaPlayer.getCurrentPlayerState());
+        Assert.assertEquals(PlayerState.IDLE,SharedTestUtils.getCurrentPlayerState(player));
 
         player = getInitializedMP();
-        Assert.assertEquals(PlayerState.INITIALIZED,player._mediaPlayer.getCurrentPlayerState());
+        Assert.assertEquals(PlayerState.INITIALIZED,SharedTestUtils.getCurrentPlayerState(player));
 
         try {
             player.stop();
         } catch (Exception e) {
             Assert.fail("Media player exception when stopping from idle: " + e.toString());
         }
-        Assert.assertEquals(PlayerState.INITIALIZED,player._mediaPlayer.getCurrentPlayerState());
+        Assert.assertEquals(PlayerState.INITIALIZED,SharedTestUtils.getCurrentPlayerState(player));
 
         //NOTE: call to player.play() would result in prepareAcynh
         // which switches to the PREPARING transient state, any
         // call during this state is undefined
 
         player = getPreparedMP();
-        Assert.assertEquals(PlayerState.PREPARED,player._mediaPlayer.getCurrentPlayerState());
+        Assert.assertEquals(PlayerState.PREPARED,SharedTestUtils.getCurrentPlayerState(player));
         try {
             player.stop();
         } catch (Exception e) {
             Assert.fail("Media player exception when stopping from idle: " + e.toString());
         }
-        Assert.assertEquals(PlayerState.STOPPED,player._mediaPlayer.getCurrentPlayerState());
+        Assert.assertEquals(PlayerState.STOPPED,SharedTestUtils.getCurrentPlayerState(player));
 
         player = getStartedMP();
-        Assert.assertEquals(PlayerState.PLAYING,player._mediaPlayer.getCurrentPlayerState());
+        Assert.assertEquals(PlayerState.PLAYING,SharedTestUtils.getCurrentPlayerState(player));
         try {
             player.stop();
         } catch (Exception e) {
             Assert.fail("Media player exception when stopping from idle: " + e.toString());
         }
-        Assert.assertEquals(PlayerState.STOPPED,player._mediaPlayer.getCurrentPlayerState());
+        Assert.assertEquals(PlayerState.STOPPED,SharedTestUtils.getCurrentPlayerState(player));
 
         player = getPausedMP();
-        Assert.assertEquals(PlayerState.PAUSED,player._mediaPlayer.getCurrentPlayerState());
+        Assert.assertEquals(PlayerState.PAUSED,SharedTestUtils.getCurrentPlayerState(player));
         try {
             player.stop();
         } catch (Exception e) {
             Assert.fail("Media player exception when stopping from idle: " + e.toString());
         }
-        Assert.assertEquals(PlayerState.STOPPED,player._mediaPlayer.getCurrentPlayerState());
+        Assert.assertEquals(PlayerState.STOPPED,SharedTestUtils.getCurrentPlayerState(player));
 
         //TODO test asynch for playback complete (or very short track and loop)
     }
@@ -258,18 +259,19 @@ public class AudioPlayerHelperTest {
     @Test
     public void stopFromInitialized() throws IOException{
         AudioPlayerHelper player = getInitializedMP();
-        Assert.assertEquals(PlayerState.INITIALIZED,player._mediaPlayer.getCurrentPlayerState());
+        Assert.assertEquals(PlayerState.INITIALIZED,SharedTestUtils.getCurrentPlayerState(player));
         try {
             player.stop();
         } catch (Exception e) {
             Assert.fail("Media player exception when stopping from idle: " + e.toString());
         }
-        Assert.assertEquals(PlayerState.INITIALIZED,player._mediaPlayer.getCurrentPlayerState());
+        Assert.assertEquals(PlayerState.INITIALIZED,SharedTestUtils.getCurrentPlayerState(player));
     }
 
     private AudioPlayerHelper getIdleMP() throws IOException {
 
         AudioPlayerHelper audioPlayerHelper = new AudioPlayerHelper();
+        audioPlayerHelper.resetAndRemoveFilesFromPlayer();
         return audioPlayerHelper;
     }
 
@@ -283,7 +285,8 @@ public class AudioPlayerHelperTest {
 
     private AudioPlayerHelper getPreparingMP() throws IOException {
         AudioPlayerHelper player = getInitializedMP();
-        player._mediaPlayer.tryPrepareAsynch();
+
+        SharedTestUtils.tryPrepareAsynch(player);
 
         return player;
     }
@@ -291,14 +294,16 @@ public class AudioPlayerHelperTest {
 
     private AudioPlayerHelper getPreparedMP() throws IOException {
         AudioPlayerHelper player = getInitializedMP();
-        player._mediaPlayer.prepare();
+
+        SharedTestUtils.prepare(player);
 
         return player;
     }
 
     private AudioPlayerHelper getStartedMP() throws IOException {
         AudioPlayerHelper player = getPreparedMP();
-        player._mediaPlayer.start();
+
+        SharedTestUtils.start(player);
 
         return player;
     }
@@ -370,7 +375,8 @@ public class AudioPlayerHelperTest {
             file2 = getFileDescriptor(filePath2, assetManager);
         }
 
-        AudioPlayerHelper audioPlayerHelper = new AudioPlayerHelper(file1);
+        AudioPlayerHelper audioPlayerHelper = new AudioPlayerHelper();
+        audioPlayerHelper.changeAudioFiles(file1);
         audioPlayerHelper.play();
         audioPlayerHelper.changeAudioFiles(file2);
         audioPlayerHelper.play();
@@ -385,7 +391,8 @@ public class AudioPlayerHelperTest {
         AssetFileDescriptor[] audioFiles
                 = getSomeAudioAssetFileDescriptors(assetManager);
 
-        AudioPlayerHelper audioPlayerHelper = new AudioPlayerHelper(audioFiles);
+        AudioPlayerHelper audioPlayerHelper = new AudioPlayerHelper();
+        audioPlayerHelper.changeAudioFiles(audioFiles);
         audioPlayerHelper.play();
 
         AssetFileDescriptor singleFile = getSingleAudioFileDescriptor(assetManager);
@@ -406,8 +413,8 @@ public class AudioPlayerHelperTest {
                 = getSingleAudioFileDescriptor(assetManager);
 
 
-        AudioPlayerHelper audioPlayerHelper = new AudioPlayerHelper(
-                audioFiles);
+        AudioPlayerHelper audioPlayerHelper = new AudioPlayerHelper();
+        audioPlayerHelper.changeAudioFiles(audioFiles);
         audioPlayerHelper.play();
 
         audioPlayerHelper.changeAudioFiles(singleFile);
@@ -423,15 +430,16 @@ public class AudioPlayerHelperTest {
     @Test
     public void changeAudioFiles_checkFilesCount() throws IOException {
         AudioPlayerHelper player = getInitializedMP();
+
         Assert.assertEquals("files in media player",
-                1,player._mediaPlayer.filesCount());
+                1,SharedTestUtils.filesCount(player));
 
         AssetFileDescriptor[] assetFileDescriptors = getSomeAudioAssetFileDescriptors(assetManager);
         Assert.assertTrue(assetFileDescriptors.length > 1);
 
         player.changeAudioFiles(assetFileDescriptors);
         Assert.assertEquals("files in media player",
-                assetFileDescriptors.length,player._mediaPlayer.filesCount());
+                assetFileDescriptors.length,SharedTestUtils.filesCount(player));
     }
 
     @Test
@@ -450,15 +458,15 @@ public class AudioPlayerHelperTest {
         //player is initialized
 
         Assert.assertEquals("files in media player",
-                assetFileDescriptors.length,player._mediaPlayer.filesCount());
+                assetFileDescriptors.length,SharedTestUtils.filesCount(player));
 
-        player._mediaPlayer.prepareAsync();//.prepare();
-        Assert.assertEquals(PlayerState.PREPARING,player._mediaPlayer.getCurrentPlayerState());
+        SharedTestUtils.prepareAsync(player);//.prepare();
+        Assert.assertEquals(PlayerState.PREPARING,SharedTestUtils.getCurrentPlayerState(player));
         //NB: onPrepared listener starts playing automatically
         //TODO fix/reconsider all tests that use prepare/prepareAsynch in light of this
 
         Assert.assertEquals("files in media player",
-                assetFileDescriptors.length,player._mediaPlayer.filesCount());
+                assetFileDescriptors.length,SharedTestUtils.filesCount(player));
 
         Log.d(TAG,"waiting for first track to complete");
         waitForFirstTrackFinishPreparingAndPlaying(player);
@@ -488,8 +496,8 @@ public class AudioPlayerHelperTest {
         AssetFileDescriptor[] audioFiles
                 = getSomeAudioAssetFileDescriptors(assetManager);
 
-        AudioPlayerHelper audioPlayerHelper = new AudioPlayerHelper(
-                audioFiles);
+        AudioPlayerHelper audioPlayerHelper = new AudioPlayerHelper();
+        audioPlayerHelper.changeAudioFiles(audioFiles);
         audioPlayerHelper.play();
 
         int playAttempts = 15;//150000;
@@ -507,8 +515,8 @@ public class AudioPlayerHelperTest {
         AssetFileDescriptor singleFile
                 = getSingleAudioFileDescriptor(assetManager);
 
-        AudioPlayerHelper audioPlayerHelper = new AudioPlayerHelper(
-                singleFile);
+        AudioPlayerHelper audioPlayerHelper = new AudioPlayerHelper();
+        audioPlayerHelper.changeAudioFiles(singleFile);
         audioPlayerHelper.play();
         audioPlayerHelper.stop();
         audioPlayerHelper.play();
@@ -574,8 +582,8 @@ public class AudioPlayerHelperTest {
         AssetFileDescriptor[] audioFiles
                 = getSomeAudioAssetFileDescriptors(assetManager);
 
-        AudioPlayerHelper audioPlayerHelper = new AudioPlayerHelper(
-                audioFiles);
+        AudioPlayerHelper audioPlayerHelper = new AudioPlayerHelper();
+        audioPlayerHelper.changeAudioFiles(audioFiles);
         audioPlayerHelper.play();
 
         Assert.assertEquals("files count",audioFiles.length,
@@ -593,12 +601,12 @@ public class AudioPlayerHelperTest {
         AssetFileDescriptor singleAudioFile
                 = getSingleAudioFileDescriptor(assetManager);
 
-        player._mediaPlayer.tryInsertFileIntoMediaplayer(singleAudioFile);
+        SharedTestUtils.tryInsertFileIntoMediaplayer(player, singleAudioFile);
 
         Assert.assertFalse("Assets have been wrongly nullified, player can't play",
-                Utils.isNullOrEmpty(player._mediaPlayer.assetFileDescriptors));
+                Utils.isNullOrEmpty(SharedTestUtils.getAssetFileDescriptors(player)));
 
-        player._mediaPlayer.changeAudioFiles(getSomeAudioAssetFileDescriptors(assetManager));
+        SharedTestUtils.changeAudioFiles(player, getSomeAudioAssetFileDescriptors(assetManager));
         player.play();
         waitForStateWhilePreparing(player, PlayerState.PLAYING);
     }
@@ -615,8 +623,8 @@ public class AudioPlayerHelperTest {
         AssetFileDescriptor[] audioFiles
                 = getSomeAudioAssetFileDescriptors(assetManager);
 
-        AudioPlayerHelper audioPlayerHelper = new AudioPlayerHelper(
-                audioFiles);
+        AudioPlayerHelper audioPlayerHelper = new AudioPlayerHelper();
+        audioPlayerHelper.changeAudioFiles(audioFiles);
         audioPlayerHelper.play();
 
         int playAttempts = 15;//150000;

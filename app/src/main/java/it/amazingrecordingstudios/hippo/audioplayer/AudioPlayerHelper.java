@@ -22,40 +22,40 @@ public class AudioPlayerHelper implements Closeable {
 
     public static final String TAG = "AudioPlayerHelper";
 
+    private static MediaPlayerWrapperMultipleFiles _mediaPlayer;
+
+    static {
+        setUpMediaPlayer();
+    }
+
+    private static void setUpMediaPlayer() {
+
+        _mediaPlayer = new MediaPlayerWrapperMultipleFiles();
+        //redundant: _mediaPlayer.setCurrentPlayerState(PlayerState.IDLE);
+
+        if(android.os.Build.VERSION.SDK_INT
+                >= Build.VERSION_CODES.LOLLIPOP) {
+            setMPDefaultAudioAttributes(_mediaPlayer);
+        } else {
+            //mediaPlayer.setAudioStreamType(..);
+        }
+    }
+
     public boolean isPlaying() {
-        return this._mediaPlayer.isPlaying();
+        return _mediaPlayer.isPlaying();
     }
 
     public boolean isPaused() {
-        return this._mediaPlayer.isPaused();
+        return _mediaPlayer.isPaused();
     }
 
     public boolean isPlayingOrPaused() {
         return isPlaying() || isPaused();
     }
 
-    MediaPlayerWrapperMultipleFiles _mediaPlayer;
-
-    public AudioPlayerHelper() throws IOException {
-        this((AssetFileDescriptor) null);
-    }
-
-    public AudioPlayerHelper(ArrayList<String> audioFilePaths,
-                             AssetManager assetManager) throws IOException {
-
-        this(Utils.getAssetFileDescriptors(Utils.toArray(audioFilePaths), assetManager));
-    }
-
-    public AudioPlayerHelper(AssetFileDescriptor assetFileDescriptor) throws IOException {
-        this(new AssetFileDescriptor[]{assetFileDescriptor});
-    }
-
-    public AudioPlayerHelper(AssetFileDescriptor[] assetFileDescriptors) throws IOException {
-
-        setUpMediaPlayer();
-
-        if(!Utils.isNullOrEmpty(assetFileDescriptors)) {
-            this._mediaPlayer.changeAudioFiles(assetFileDescriptors);
+    public AudioPlayerHelper() {
+        if(_mediaPlayer.isReleased()) {
+            setUpMediaPlayer();
         }
     }
 
@@ -69,9 +69,16 @@ public class AudioPlayerHelper implements Closeable {
         return DEFAULT_AUDIO_ATTRIBUTES;
     }
 
+    public void changeAudioFiles(ArrayList<String> audioFilePaths,
+                             AssetManager assetManager) throws IOException {
+
+        this.changeAudioFiles(Utils.getAssetFileDescriptors(Utils.toArray(audioFilePaths), assetManager));
+    }
+
     @Keep
     public void changeAudioFiles(AssetFileDescriptor newAssetFileDescriptor)
             throws IOException {
+
         AssetFileDescriptor[] assetFileDescriptors
                 = {newAssetFileDescriptor};
 
@@ -81,20 +88,7 @@ public class AudioPlayerHelper implements Closeable {
     public void changeAudioFiles(AssetFileDescriptor[] newAssetFileDescriptors)
             throws IOException {
 
-        this._mediaPlayer.changeAudioFiles(newAssetFileDescriptors);
-    }
-
-    private void setUpMediaPlayer() {
-
-        this._mediaPlayer = new MediaPlayerWrapperMultipleFiles();
-        //redundant: _mediaPlayer.setCurrentPlayerState(PlayerState.IDLE);
-
-        if(android.os.Build.VERSION.SDK_INT
-                >= Build.VERSION_CODES.LOLLIPOP) {
-            setMPDefaultAudioAttributes(this._mediaPlayer);
-        } else {
-            //mediaPlayer.setAudioStreamType(..);
-        }
+        _mediaPlayer.changeAudioFiles(newAssetFileDescriptors);
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
@@ -108,7 +102,7 @@ public class AudioPlayerHelper implements Closeable {
 
     @Override
     public void close() throws IOException {
-        this._mediaPlayer.close();
+        _mediaPlayer.close();
     }
 
     public static void playQuotes(String[] quotesAssetsPaths,
@@ -139,28 +133,28 @@ public class AudioPlayerHelper implements Closeable {
     }
 
     public void resetAndRemoveFilesFromPlayer() {
-        this._mediaPlayer.reset();
+        _mediaPlayer.reset();
     }
 
     public void stop() {
-        this._mediaPlayer.stop();
+        _mediaPlayer.stop();
     }
 
     public void pauseOrResume() {
-        this._mediaPlayer.pauseOrResume();
+        _mediaPlayer.pauseOrResume();
     }
 
     public void pause() {
-        this._mediaPlayer.pause();
+        _mediaPlayer.pause();
     }
 
     @Keep
     public void play() {
-        this._mediaPlayer.play();
+        _mediaPlayer.play();
     }
 
     @Keep
     public int filesCount() {
-        return this._mediaPlayer.filesCount();
+        return _mediaPlayer.filesCount();
     }
 }

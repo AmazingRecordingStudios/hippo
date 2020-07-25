@@ -52,6 +52,10 @@ public abstract class LoggableMediaPlayer extends MediaPlayer {
         return currentPlayerState == PlayerState.INITIALIZED;
     }
 
+    public boolean isReleased() {
+        return currentPlayerState == PlayerState.END_RELEASED_UNAVAILABLE;
+    }
+
     protected void setCurrentPlayerState(PlayerState state) {
         Log.v(TAG,"Going from " + getCurrentPlayerState()
                 + " to " + state);
