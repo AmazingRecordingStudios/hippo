@@ -36,27 +36,6 @@ public class AudioPlayerHelper implements Closeable {
 
     MediaPlayerWrapperMultipleFiles _mediaPlayer;
 
-    MediaPlayer.OnPreparedListener onPreparedListener = new MediaPlayer.OnPreparedListener() {
-        @Override
-        public void onPrepared(MediaPlayer player) {
-
-//            player.isPlaying();
-//            player.setNextMediaPlayer();
-//            player.setOnCompletionListener();
-//
-//            player.setOnErrorListener();
-//            player.selectTrack
-
-            _mediaPlayer.setCurrentPlayerState(PlayerState.PREPARED);
-            Log.v(TAG,"Player completed preparing. Starting to play..");
-            player.start();
-            // redundant: _mediaPlayer.setCurrentPlayerState(PlayerState.PLAYING);
-            // handle events during playback?
-
-            _mediaPlayer.processQueuedCallsWhilePreparing();
-        }
-    };
-
     public AudioPlayerHelper() throws IOException {
         this((AssetFileDescriptor) null);
     }
@@ -110,7 +89,7 @@ public class AudioPlayerHelper implements Closeable {
         this._mediaPlayer = new MediaPlayerWrapperMultipleFiles(this);
         //redundant: _mediaPlayer.setCurrentPlayerState(PlayerState.IDLE);
 
-        this._mediaPlayer.setListeners(onPreparedListener,
+        this._mediaPlayer.setListeners(_mediaPlayer.onPreparedListener,
                 _mediaPlayer.onCompletionListener,_mediaPlayer.onErrorListener);
 
         if(android.os.Build.VERSION.SDK_INT

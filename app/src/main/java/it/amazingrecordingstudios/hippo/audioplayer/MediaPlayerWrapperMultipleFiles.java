@@ -12,6 +12,7 @@ import it.amazingrecordingstudios.hippo.utils.Utils;
 public class MediaPlayerWrapperMultipleFiles
         extends MediaPlayerWrapperOneFileAtATime {
 
+    public static final String TAG = "MPWMultipleFiles";
     AssetFileDescriptor[] assetFileDescriptors;
     private boolean _lastFileHasPlayed;
     private final AudioPlayerHelper audioPlayerHelper;
@@ -284,6 +285,27 @@ public class MediaPlayerWrapperMultipleFiles
         this.release();
         CloseAssetFileDescriptors();
     }
+
+    MediaPlayer.OnPreparedListener onPreparedListener = new MediaPlayer.OnPreparedListener() {
+        @Override
+        public void onPrepared(MediaPlayer player) {
+
+//            player.isPlaying();
+//            player.setNextMediaPlayer();
+//            player.setOnCompletionListener();
+//
+//            player.setOnErrorListener();
+//            player.selectTrack
+
+            setCurrentPlayerState(PlayerState.PREPARED);
+            Log.v(TAG,"Player completed preparing. Starting to play..");
+            player.start();
+            // redundant: _mediaPlayer.setCurrentPlayerState(PlayerState.PLAYING);
+            // handle events during playback?
+
+            processQueuedCallsWhilePreparing();
+        }
+    };
 
     OnCompletionListener onCompletionListener = new OnCompletionListener() {
         @Override
