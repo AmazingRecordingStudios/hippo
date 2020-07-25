@@ -14,45 +14,45 @@ public abstract class LoggableMediaPlayer extends MediaPlayer {
     private static final String TAG = "SafeLoggableMediaPlayer" ;
 
 
-    protected AudioPlayerHelper.PlayerState currentPlayerState;
+    protected PlayerState currentPlayerState;
 
     public LoggableMediaPlayer() {
         super();
 
         //setCurrentPlayerState(PlayerState.UNKNOWN);
         Log.d(TAG,"New LoggableMediaPlayer");
-        setCurrentPlayerState(AudioPlayerHelper.PlayerState.IDLE);
+        setCurrentPlayerState(PlayerState.IDLE);
     }
 
-    public AudioPlayerHelper.PlayerState getCurrentPlayerState() {
+    public PlayerState getCurrentPlayerState() {
         return currentPlayerState;
     }
 
     public boolean isPaused() {
-        return  currentPlayerState == AudioPlayerHelper.PlayerState.PAUSED;
+        return  currentPlayerState == PlayerState.PAUSED;
     }
 
     public boolean hasCompletedPlaying() {
-        return currentPlayerState == AudioPlayerHelper.PlayerState.COMPLETED;
+        return currentPlayerState == PlayerState.COMPLETED;
     }
 
     public boolean isPreparing() {
-        return currentPlayerState == AudioPlayerHelper.PlayerState.PREPARING;
+        return currentPlayerState == PlayerState.PREPARING;
     }
 
     public boolean isIdle() {
-        return currentPlayerState == AudioPlayerHelper.PlayerState.IDLE;
+        return currentPlayerState == PlayerState.IDLE;
     }
 
     public boolean isStopped() {
-        return currentPlayerState == AudioPlayerHelper.PlayerState.STOPPED;
+        return currentPlayerState == PlayerState.STOPPED;
     }
 
     public boolean isInitialized() {
-        return currentPlayerState == AudioPlayerHelper.PlayerState.INITIALIZED;
+        return currentPlayerState == PlayerState.INITIALIZED;
     }
 
-    protected void setCurrentPlayerState(AudioPlayerHelper.PlayerState state) {
+    protected void setCurrentPlayerState(PlayerState state) {
         Log.v(TAG,"Going from " + getCurrentPlayerState()
                 + " to " + state);
         this.currentPlayerState = state;
@@ -72,7 +72,7 @@ public abstract class LoggableMediaPlayer extends MediaPlayer {
         if(Build.VERSION.SDK_INT
                 >= Build.VERSION_CODES.LOLLIPOP) {
 
-            this.setAudioAttributes(AudioPlayerHelper.getDefaultAudioAttributes());
+           this.setAudioAttributes(AudioPlayerHelper.getDefaultAudioAttributes());
         }
     }
 
@@ -80,7 +80,7 @@ public abstract class LoggableMediaPlayer extends MediaPlayer {
     public void prepareAsync() throws IllegalStateException {
         try {
             super.prepareAsync();
-            setCurrentPlayerState(AudioPlayerHelper.PlayerState.PREPARING);
+            setCurrentPlayerState(PlayerState.PREPARING);
         } catch (Exception e) {
             Log.e(TAG,e.toString());
         }
@@ -89,32 +89,32 @@ public abstract class LoggableMediaPlayer extends MediaPlayer {
     @Override
     public void start() throws IllegalStateException {
         super.start();
-        setCurrentPlayerState(AudioPlayerHelper.PlayerState.PLAYING);
+        setCurrentPlayerState(PlayerState.PLAYING);
     }
 
     @Override
     public void stop() throws IllegalStateException {
         super.stop();
-        setCurrentPlayerState(AudioPlayerHelper.PlayerState.STOPPED);
+        setCurrentPlayerState(PlayerState.STOPPED);
     }
 
     @Override
     public void release() {
         super.release();
-        setCurrentPlayerState(AudioPlayerHelper.PlayerState.END_RELEASED_UNAVAILABLE);
+        setCurrentPlayerState(PlayerState.END_RELEASED_UNAVAILABLE);
     }
 
     @Override
     public void reset() {
         Log.d(TAG,"resetting player");
         super.reset();
-        setCurrentPlayerState(AudioPlayerHelper.PlayerState.IDLE);
+        setCurrentPlayerState(PlayerState.IDLE);
     }
 
     @Override
     public void pause() throws IllegalStateException {
         super.pause();
-        setCurrentPlayerState(AudioPlayerHelper.PlayerState.PAUSED);
+        setCurrentPlayerState(PlayerState.PAUSED);
     }
 
     @Override
@@ -122,13 +122,13 @@ public abstract class LoggableMediaPlayer extends MediaPlayer {
         super.setDataSource(fd, offset, length);
 
         //this method is for compatibility with SDK API < 24
-        setCurrentPlayerState(AudioPlayerHelper.PlayerState.INITIALIZED);
+        setCurrentPlayerState(PlayerState.INITIALIZED);
     }
 
     @Override
     public void prepare() throws IOException, IllegalStateException {
         super.prepare();
-        setCurrentPlayerState(AudioPlayerHelper.PlayerState.PREPARED);
+        setCurrentPlayerState(PlayerState.PREPARED);
     }
 
     @Override
@@ -142,6 +142,11 @@ public abstract class LoggableMediaPlayer extends MediaPlayer {
         super.setDataSource(path);
 
         //this method works only on SDK API >= 24
-        setCurrentPlayerState(AudioPlayerHelper.PlayerState.INITIALIZED);
+        setCurrentPlayerState(PlayerState.INITIALIZED);
+    }
+
+    public enum PlayerState { /*UNKNOWN,*/ IDLE, INITIALIZED,
+        PREPARING, PREPARED, PLAYING, PAUSED, COMPLETED,
+        STOPPED, ERROR, END_RELEASED_UNAVAILABLE
     }
 }

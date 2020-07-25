@@ -214,7 +214,7 @@ public class MediaPlayerWrapperMultipleFiles
         else if(this.isInitialized()) {
             tryPrepareAsynch();
         } else if(this.isPreparing()) {
-            this.enqueueCall(AudioPlayerHelper.PlayerState.PLAYING);
+            this.enqueueCall(PlayerState.PLAYING);
         }
         else {
             String msg = "Play request non accepted state, ignoring. State: "
@@ -254,7 +254,7 @@ public class MediaPlayerWrapperMultipleFiles
 
         } else if(this.isPreparing()) {
             Log.d(AudioPlayerHelper.TAG,"Queuing stop() call received while in PREPARING state, to avoid error");
-            this.enqueueCall(AudioPlayerHelper.PlayerState.STOPPED);
+            this.enqueueCall(PlayerState.STOPPED);
         } else {
             super.stop();
             //setLastFileHasPlayed(false);
@@ -289,7 +289,7 @@ public class MediaPlayerWrapperMultipleFiles
         @Override
         public void onCompletion(MediaPlayer mp) {
 
-            audioPlayerHelper._mediaPlayer.setCurrentPlayerState(AudioPlayerHelper.PlayerState.COMPLETED);
+            audioPlayerHelper._mediaPlayer.setCurrentPlayerState(PlayerState.COMPLETED);
             //FIXME this stop() might be causing the error:
             //E/MediaPlayer: stop called in state 0
             //E/MediaPlayer: error (-38, 0)

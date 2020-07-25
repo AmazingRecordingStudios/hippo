@@ -10,7 +10,7 @@ import java.lang.reflect.Field;
 import java.util.TreeMap;
 
 import it.amazingrecordingstudios.hippo.audioplayer.AudioPlayerHelper;
-import it.amazingrecordingstudios.hippo.audioplayer.AudioPlayerHelper.PlayerState;
+import it.amazingrecordingstudios.hippo.audioplayer.LoggableMediaPlayer.PlayerState;
 import it.amazingrecordingstudios.hippo.audioplayer.SafeLoggableMediaPlayer;
 import it.amazingrecordingstudios.hippo.database.QuotesProvider;
 import it.amazingrecordingstudios.hippo.model.Playlist;

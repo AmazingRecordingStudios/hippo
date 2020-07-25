@@ -11,36 +11,36 @@ import java.util.TreeMap;
 
 public abstract class SafeLoggableMediaPlayer extends LoggableMediaPlayer {
 
-    public final static List<AudioPlayerHelper.PlayerState> validStatesTowardsStop;
-    public final static List<AudioPlayerHelper.PlayerState> validStatesTowardsPrepareAsynch;
-    public final static Map<AudioPlayerHelper.PlayerState,
-            List<AudioPlayerHelper.PlayerState>> validTransitions;
+    public final static List<PlayerState> validStatesTowardsStop;
+    public final static List<PlayerState> validStatesTowardsPrepareAsynch;
+    public final static Map<PlayerState,
+            List<PlayerState>> validTransitions;
     static {
-        {   AudioPlayerHelper.PlayerState[] validStatesTowardsStopTmp
-                = {AudioPlayerHelper.PlayerState.PREPARED,
-                AudioPlayerHelper.PlayerState.PREPARING,
-                AudioPlayerHelper.PlayerState.PLAYING,
-                AudioPlayerHelper.PlayerState.STOPPED,
-                AudioPlayerHelper.PlayerState.PAUSED,
-                AudioPlayerHelper.PlayerState.COMPLETED};
+        {   PlayerState[] validStatesTowardsStopTmp
+                = {PlayerState.PREPARED,
+                PlayerState.PREPARING,
+                PlayerState.PLAYING,
+                PlayerState.STOPPED,
+                PlayerState.PAUSED,
+                PlayerState.COMPLETED};
             validStatesTowardsStop = Arrays.asList(validStatesTowardsStopTmp);
         }
 
         {
-            AudioPlayerHelper.PlayerState[] validStatesTowardsPrepareAsynchTmp
-                    = {AudioPlayerHelper.PlayerState.INITIALIZED,
-                    AudioPlayerHelper.PlayerState.STOPPED};
+            PlayerState[] validStatesTowardsPrepareAsynchTmp
+                    = {PlayerState.INITIALIZED,
+                    PlayerState.STOPPED};
             validStatesTowardsPrepareAsynch = Arrays.asList(validStatesTowardsPrepareAsynchTmp);
         }
 
         validTransitions = new TreeMap<>();
-        validTransitions.put(AudioPlayerHelper.PlayerState.STOPPED, validStatesTowardsStop);
-        validTransitions.put(AudioPlayerHelper.PlayerState.PREPARING, validStatesTowardsPrepareAsynch);
+        validTransitions.put(PlayerState.STOPPED, validStatesTowardsStop);
+        validTransitions.put(PlayerState.PREPARING, validStatesTowardsPrepareAsynch);
     }
 
     protected boolean receivedCallsWhilePreparing;
 
-    protected ArrayList<AudioPlayerHelper.PlayerState> callsWhilePreparing;
+    protected ArrayList<PlayerState> callsWhilePreparing;
 
     public SafeLoggableMediaPlayer() {
         super();
@@ -51,7 +51,7 @@ public abstract class SafeLoggableMediaPlayer extends LoggableMediaPlayer {
 
     abstract public void play() ;
 
-    protected void enqueueCall(AudioPlayerHelper.PlayerState nextCall) {
+    protected void enqueueCall(PlayerState nextCall) {
         if(this.isPreparing()) {
             this.callsWhilePreparing.add(nextCall);
             this.receivedCallsWhilePreparing = true;
@@ -61,12 +61,12 @@ public abstract class SafeLoggableMediaPlayer extends LoggableMediaPlayer {
     }
 
     protected void processQueuedCallsWhilePreparing() {
-        for(AudioPlayerHelper.PlayerState stateCall:this.callsWhilePreparing) {
-            if(stateCall == AudioPlayerHelper.PlayerState.STOPPED) {
+        for(PlayerState stateCall:this.callsWhilePreparing) {
+            if(stateCall == PlayerState.STOPPED) {
                 this.stop();
-            } else if(stateCall == AudioPlayerHelper.PlayerState.PAUSED) {
+            } else if(stateCall == PlayerState.PAUSED) {
                 this.pause();
-            } else if(stateCall == AudioPlayerHelper.PlayerState.PLAYING) {
+            } else if(stateCall == PlayerState.PLAYING) {
                 this.play();
             } else {
                 Log.d(AudioPlayerHelper.TAG,"Ignoring call queued while preparing: "
@@ -98,7 +98,7 @@ public abstract class SafeLoggableMediaPlayer extends LoggableMediaPlayer {
     * */
     }
 
-    public boolean isValidStateForStop(AudioPlayerHelper.PlayerState state) {
+    public boolean isValidStateForStop(PlayerState state) {
 
         return validStatesTowardsStop.contains(state);
     }
@@ -136,7 +136,7 @@ public abstract class SafeLoggableMediaPlayer extends LoggableMediaPlayer {
 
         if(this.isPreparing()) {
             Log.d(AudioPlayerHelper.TAG,"Queuing pause() call received while in PREPARING state, to avoid error");
-            this.enqueueCall(AudioPlayerHelper.PlayerState.PAUSED);
+            this.enqueueCall(PlayerState.PAUSED);
             return;
         }
 

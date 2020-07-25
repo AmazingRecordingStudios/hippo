@@ -21,7 +21,7 @@ import java.io.IOException;
 
 import it.amazingrecordingstudios.hippo.Globals;
 import it.amazingrecordingstudios.hippo.SharedTestUtils;
-import it.amazingrecordingstudios.hippo.audioplayer.AudioPlayerHelper.PlayerState;
+import it.amazingrecordingstudios.hippo.audioplayer.LoggableMediaPlayer.PlayerState;
 import it.amazingrecordingstudios.hippo.utils.Utils;
 
 public class AudioPlayerHelperTest {
@@ -412,9 +412,9 @@ public class AudioPlayerHelperTest {
 
         audioPlayerHelper.changeAudioFiles(singleFile);
 
-        AudioPlayerHelper.PlayerState expectedPlayerState
-                = AudioPlayerHelper.PlayerState.INITIALIZED;
-        AudioPlayerHelper.PlayerState actualPlayerState
+        PlayerState expectedPlayerState
+                = PlayerState.INITIALIZED;
+        PlayerState actualPlayerState
                 = SharedTestUtils.getCurrentPlayerState(audioPlayerHelper);
 
         Assert.assertEquals("Wrong player state",expectedPlayerState,actualPlayerState);
@@ -467,7 +467,7 @@ public class AudioPlayerHelperTest {
         Log.d(TAG,"track switched, waiting for preparing");
         waitForNextTrackPreparing(player);
         Log.d(TAG,"second track prepared, waiting for playing..");
-        waitForStateWhilePreparing(player,PlayerState.PLAYING);
+        waitForStateWhilePreparing(player, PlayerState.PLAYING);
     }
 
     @Test
@@ -600,7 +600,7 @@ public class AudioPlayerHelperTest {
 
         player._mediaPlayer.changeAudioFiles(getSomeAudioAssetFileDescriptors(assetManager));
         player.play();
-        waitForStateWhilePreparing(player,PlayerState.PLAYING);
+        waitForStateWhilePreparing(player, PlayerState.PLAYING);
     }
 
     //TODO FIXME lifecycle of when calling mp.reset()

@@ -16,13 +16,9 @@ import java.util.ArrayList;
 
 import it.amazingrecordingstudios.hippo.database.DBUtils;
 import it.amazingrecordingstudios.hippo.utils.Utils;
+import it.amazingrecordingstudios.hippo.audioplayer.LoggableMediaPlayer.PlayerState;
 
 public class AudioPlayerHelper implements Closeable {
-
-    public enum PlayerState { /*UNKNOWN,*/ IDLE, INITIALIZED,
-        PREPARING, PREPARED, PLAYING, PAUSED, COMPLETED,
-        STOPPED, ERROR, END_RELEASED_UNAVAILABLE
-    }
 
     public static final String TAG = "AudioPlayerHelper";
 
