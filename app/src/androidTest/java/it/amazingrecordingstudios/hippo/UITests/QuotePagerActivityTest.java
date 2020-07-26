@@ -7,6 +7,7 @@ import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.espresso.accessibility.AccessibilityChecks;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.LargeTest;
 import androidx.test.filters.Suppress;
 import androidx.test.platform.app.InstrumentationRegistry;
 
@@ -21,6 +22,9 @@ import it.amazingrecordingstudios.hippo.R;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.swipeLeft;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 @RunWith(AndroidJUnit4.class)
 public class QuotePagerActivityTest {
@@ -33,7 +37,7 @@ public class QuotePagerActivityTest {
     // checks for fonts?
 
     @Rule
-    public ActivityScenarioRule<QuotePagerActivity> quotePagerActivityActivityTestRule =
+    public ActivityScenarioRule<QuotePagerActivity> quotePagerActivityTestRule =
             new ActivityScenarioRule<>(createDemoIntent());
 
     private Intent createDemoIntent() {
@@ -43,6 +47,8 @@ public class QuotePagerActivityTest {
         intent.setAction(QuotePagerActivity.DEMO_ACTION);
         return intent;
     }
+
+    SharedUITestUtils sharedUITestUtils = new SharedUITestUtils();
 
     @Before
     public void setUp() {
@@ -69,5 +75,14 @@ public class QuotePagerActivityTest {
         //onView(withId(R.id.textToBeChanged)).check(matches(withText(STRING_TO_BE_TYPED)));
 
         onView(ViewMatchers.withId(R.id.pageCounterTV)).perform(click());
+    }
+
+    @Test
+    @LargeTest
+    public void greekShortTextTVIsDisplayed() {
+
+        onView(withId(R.id.greekShortTextTV))
+                .perform(click())
+                .check(matches(isDisplayed()));
     }
 }

@@ -14,7 +14,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
-import it.amazingrecordingstudios.hippo.SharedTestUtils;
+import it.amazingrecordingstudios.hippo.SharedDBTestUtils;
 import it.amazingrecordingstudios.hippo.model.Quote;
 import it.amazingrecordingstudios.hippo.model.Schermata;
 
@@ -43,7 +43,7 @@ public class DBManagerTest {
         this.appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         this.quotesProvider = new QuotesProvider();
         this.quotesProvider.create(appContext);
-        SharedTestUtils.init(this.quotesProvider);
+        SharedDBTestUtils.init(this.quotesProvider);
 
         quotesProvider.getSchermateById();
 
@@ -98,7 +98,7 @@ public class DBManagerTest {
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         this.quotesProvider = new QuotesProvider();
         this.quotesProvider.create(appContext);
-        SharedTestUtils.init(this.quotesProvider);
+        SharedDBTestUtils.init(this.quotesProvider);
 
         return quotesProvider.getSchermateById();
     }
@@ -185,7 +185,7 @@ public class DBManagerTest {
     public void allScreensArePresentNoErrorsInViewQueries() {
 
         int expectedScreenCount
-                = SharedTestUtils.getTableRowsCount(appContext,
+                = SharedDBTestUtils.getTableRowsCount(appContext,
                 "schermate");
 
         int actualScreenCount = quotesProvider.getSchermateById().size();
@@ -197,7 +197,7 @@ public class DBManagerTest {
                 = "SELECT COUNT(*) FROM (" +
                 "SELECT DISTINCT s_id FROM v_schermate_and_quotes);";
         int actualScreenCount2
-                = SharedTestUtils.longForQuery(appContext,countView2RowsQuery);
+                = SharedDBTestUtils.longForQuery(appContext,countView2RowsQuery);
 
         assertEquals("Wrong screen count from view",
                 expectedScreenCount,actualScreenCount2);

@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import java.util.TreeMap;
 
-import it.amazingrecordingstudios.hippo.SharedTestUtils;
+import it.amazingrecordingstudios.hippo.SharedDBTestUtils;
 import it.amazingrecordingstudios.hippo.database.QuotesProvider;
 
 import static org.junit.Assert.*;
@@ -34,7 +34,7 @@ public class PlaylistIteratorTest {
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         QuotesProvider quotesProvider = new QuotesProvider();
         quotesProvider.create(appContext);
-        SharedTestUtils.init(quotesProvider);
+        SharedDBTestUtils.init(quotesProvider);
 
         TreeMap<Integer, Schermata> schermateById;
         TreeMap<Integer,Playlist> playlists;
