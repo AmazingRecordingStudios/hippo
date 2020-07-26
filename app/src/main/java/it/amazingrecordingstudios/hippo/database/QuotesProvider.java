@@ -45,7 +45,7 @@ public class QuotesProvider {
     //FIXME sorting of screens in a playlist; sorting field seems to have no effect
     //TODO add test for this
 
-    public static final int DATABASE_VERSION = 80;
+    public static final int DATABASE_VERSION = 82;
     public static final String DB_NAME = "greekquotes";
     public static final String TAG = "QuotesProvider";
 
