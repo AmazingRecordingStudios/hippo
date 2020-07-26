@@ -22,7 +22,7 @@ import it.amazingrecordingstudios.hippo.ui.screenslidepager.QuoteViewModel;
 
 public class QuotePagerActivity extends FragmentActivity {
 
-    //TODO FIXME there is too much delaty before opening the demo/playlist activity
+    //TODO FIXME there is too much delay before opening the demo/playlist activity
 
     public static final String TAG = "QuotePagerActivity";
     public static final String DEMO_ACTION = "it.amazingrecordingstudios.hippo.DEMO";
@@ -46,7 +46,7 @@ public class QuotePagerActivity extends FragmentActivity {
      * The pager widget, which handles animation and allows swiping horizontally to access previous
      * and next wizard steps.
      */
-    private ViewPager2 viewPager;
+    private ViewPager2 viewPager2;
     private ViewPager2.OnPageChangeCallback viewPager2PageChangeCallback;
 
     /**
@@ -60,7 +60,7 @@ public class QuotePagerActivity extends FragmentActivity {
         setContentView(R.layout.screen_slide_pager_activity);
 
         // Instantiate a ViewPager2 and a PagerAdapter.
-        viewPager = findViewById(R.id.pager);
+        viewPager2 = findViewById(R.id.pager);
         this.quoteFragmentByPage = new TreeMap<>();
         this.pageWasSelectedAtLeastOnce = new TreeMap<>();
         this.previouslySelectedPage = -1;
@@ -82,12 +82,14 @@ public class QuotePagerActivity extends FragmentActivity {
             getData(languageSetting, playlistName);
         } else {
             Log.e(TAG,"No action specified");
+            throw new IllegalStateException("No intent action specified");
+            //TODO default action?
         }
 
         this.audioPlayer = new AudioPlayerHelper();
 
         pagerAdapter = new QuotePagerAdapter(this);
-        viewPager.setAdapter(pagerAdapter);
+        viewPager2.setAdapter(pagerAdapter);
 
         viewPager2PageChangeCallback = new ViewPager2.OnPageChangeCallback() {
             @Override
@@ -110,7 +112,7 @@ public class QuotePagerActivity extends FragmentActivity {
                 previouslySelectedPage = position;
             }
         };
-        viewPager.registerOnPageChangeCallback(viewPager2PageChangeCallback);
+        viewPager2.registerOnPageChangeCallback(viewPager2PageChangeCallback);
     }
 
     public void putQuoteFragment(int position,
@@ -146,19 +148,19 @@ public class QuotePagerActivity extends FragmentActivity {
             Log.e(TAG,e.toString());
         }
 
-        viewPager.unregisterOnPageChangeCallback(
+        viewPager2.unregisterOnPageChangeCallback(
                 viewPager2PageChangeCallback);
     }
 
     @Override
     public void onBackPressed() {
-        if (viewPager.getCurrentItem() == 0) {
+        if (viewPager2.getCurrentItem() == 0) {
             // If the user is currently looking at the first step, allow the system to handle the
             // Back button. This calls finish() on this activity and pops the back stack.
             super.onBackPressed();
         } else {
             // Otherwise, select the previous step.
-            viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
+            viewPager2.setCurrentItem(viewPager2.getCurrentItem() - 1);
         }
     }
 
@@ -175,7 +177,7 @@ public class QuotePagerActivity extends FragmentActivity {
     }
 
     private void showOptionsMenuInCurrentFragment() {
-        int currentPage = viewPager.getCurrentItem();
+        int currentPage = viewPager2.getCurrentItem();
         this.quoteFragmentByPage.get(currentPage).showPopupOptionsMenu();
     }
 
