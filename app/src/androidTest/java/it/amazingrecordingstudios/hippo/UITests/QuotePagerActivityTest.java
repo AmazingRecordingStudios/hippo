@@ -10,6 +10,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.Suppress;
 import androidx.test.platform.app.InstrumentationRegistry;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,6 +44,11 @@ public class QuotePagerActivityTest {
         return intent;
     }
 
+    @Before
+    public void setUp() {
+        AccessibilityChecks.enable();
+    }
+
     @Suppress
     @Test
     public void testViewPagerSwipeFunctionality()
@@ -62,6 +68,6 @@ public class QuotePagerActivityTest {
         //onView(withId(R.id.changeTextBt)).perform(click());
         //onView(withId(R.id.textToBeChanged)).check(matches(withText(STRING_TO_BE_TYPED)));
 
-        onView(ViewMatchers.withId(R.id.pageCounterTV)).perform(click()); //.check()
+        onView(ViewMatchers.withId(R.id.pageCounterTV)).perform(click());
     }
 }

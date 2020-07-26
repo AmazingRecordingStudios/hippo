@@ -3,6 +3,7 @@ package it.amazingrecordingstudios.hippo.UITests;
 import android.view.View;
 
 import androidx.test.espresso.Espresso;
+import androidx.test.espresso.accessibility.AccessibilityChecks;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -15,6 +16,7 @@ import androidx.test.filters.LargeTest;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,8 +35,13 @@ import static org.hamcrest.Matchers.allOf;
 public class MainActivityTest {
 
     @Rule
-    public ActivityScenarioRule<MainActivity> mainActivityTestRule =
+    public ActivityScenarioRule<MainActivity> mainActivityScenarioRule =
             new ActivityScenarioRule<>(MainActivity.class);
+
+    @Before
+    public void setUp() {
+        AccessibilityChecks.enable();
+    }
 
     @Test
     public void playthroughDemo() {
