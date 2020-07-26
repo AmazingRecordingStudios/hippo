@@ -12,5 +12,6 @@
         android:fontFamily="@font/literata"
         android:inputType="textMultiLine"
         android:autoLink="none"
+        android:minHeight="48dp"
         />
 </LinearLayout>

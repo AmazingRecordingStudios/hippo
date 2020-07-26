@@ -11,11 +11,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import it.amazingrecordingstudios.hippo.CreditsActivity;
-import it.amazingrecordingstudios.hippo.MainActivity;
-import it.amazingrecordingstudios.hippo.R;
 
-import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
+import static org.hamcrest.Matchers.anything;
 
 @RunWith(AndroidJUnit4.class)
 public class CreditsActivityTest {
@@ -30,8 +30,13 @@ public class CreditsActivityTest {
     }
 
     @Test
-    public void emptyTest() {
-        //TODO perform some event to do accessibility checks
-        //onView(ViewMatchers.withId(R.id.pageCounterTV)).perform(click());
+    public void accessibilityChecks() {
+        //TODO find a way to check all the items in the list view,
+        // also in a more efficient way (like not doing anything on it)
+        // than performing a click
+        onData(anything())
+                .inAdapterView(withContentDescription("Credits"))
+                .atPosition(3)
+                .perform(click());
     }
 }
