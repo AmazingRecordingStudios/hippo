@@ -1,9 +1,9 @@
 package it.amazingrecordingstudios.hippo.UITests;
 
 import androidx.test.espresso.accessibility.AccessibilityChecks;
-import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.LargeTest;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -30,7 +30,10 @@ public class CreditsActivityTest {
     }
 
     @Test
+    @LargeTest
     public void accessibilityChecks() {
+        //Todo long test (5s), try to make it faster
+
         //TODO find a way to check all the items in the list view,
         // also in a more efficient way (like not doing anything on it)
         // than performing a click
