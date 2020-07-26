@@ -7,8 +7,8 @@ android {
         applicationId "it.amazingrecordingstudios.hippo"
         minSdkVersion 19
         targetSdkVersion 29
-        versionCode 19
-        versionName "0.5.19-pre-alpha"
+        versionCode 20
+        versionName "0.5.20-pre-alpha"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
