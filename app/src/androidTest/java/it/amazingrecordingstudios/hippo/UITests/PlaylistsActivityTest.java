@@ -1,5 +1,6 @@
 package it.amazingrecordingstudios.hippo.UITests;
 
+import androidx.test.espresso.Espresso;
 import androidx.test.espresso.accessibility.AccessibilityChecks;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -23,7 +24,7 @@ public class PlaylistsActivityTest {
     SharedUITestUtils sharedUITestUtils = new SharedUITestUtils();
 
     @Rule
-    public ActivityScenarioRule<PlaylistsActivity> quotePagerActivityTestRule =
+    public ActivityScenarioRule<PlaylistsActivity> playlistsActivityScenarioRule =
             new ActivityScenarioRule<>(PlaylistsActivity.class);
 
     @Before
@@ -68,15 +69,32 @@ public class PlaylistsActivityTest {
 
     @Test
     @LargeTest
-    public void goBackMenuOption() {
+    public void menuOptions() {
 
-        onView(withText("Prepositions")).perform(click());
-
-        sharedUITestUtils.checkPageFooter("1 of 2");
-        sharedUITestUtils.useGoBackMenuOption("1 of 2");
-
-        // Verify that we have really clicked on the icon by
-        // checking we are in previous activity
+        goToPlAndOpenMenu();
+        sharedUITestUtils.clickMenuOption("Back");
         sharedUITestUtils.checkWeAreOnPlaylistMenu();
+
+        goToPlAndOpenMenu();
+        sharedUITestUtils.clickMenuOption("Credits");
+        sharedUITestUtils.checkWeAreOnCreditsPage();
+        Espresso.pressBack();
+        Espresso.pressBack();
+
+        goToPlAndOpenMenu();
+        sharedUITestUtils.clickMenuOption("About");
+        sharedUITestUtils.checkWeAreOnAboutPage();
+    }
+
+    void goToPlAndOpenMenu() {
+        sharedUITestUtils.checkWeAreOnPlaylistMenu();
+        openPlaylist("Prepositions");
+        String expectedPageFooterText = "1 of 2";
+        sharedUITestUtils.checkPageFooter(expectedPageFooterText);
+        sharedUITestUtils.showContextualMenu(expectedPageFooterText);
+    }
+
+    void openPlaylist(String playlistName) {
+        onView(withText(playlistName)).perform(click());
     }
 }

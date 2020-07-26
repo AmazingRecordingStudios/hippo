@@ -82,26 +82,6 @@ public class MainActivityTest {
         sharedUITestUtils.checkWeAreOnMainActivity();
     }
 
-    @Suppress
-    @Test
-    @LargeTest
-    public void goBackMenuOption() {
-        onView(ViewMatchers.withId(R.id.startPlayingBtn)).perform(click());
-        sharedUITestUtils.checkWeAreOnPlaylistMenu();
-
-        onView(withText("Prepositions")).perform(click());
-        sharedUITestUtils.checkPageFooter("1 of 2");
-        sharedUITestUtils.useGoBackMenuOption("1 of 2");
-
-        // Verify that we have really clicked on the icon by
-        // checking we are in previous activity
-        sharedUITestUtils.checkWeAreOnPlaylistMenu();
-
-        //Return to main activity
-        Espresso.pressBack();
-        sharedUITestUtils.checkWeAreOnMainActivity();
-    }
-
     @Test
     @LargeTest
     public void playDemo() {
@@ -111,7 +91,8 @@ public class MainActivityTest {
         String expectedPageFooter = "1 of " + expectedPageCount;
         onView(withId(R.id.pageCounterTV)).check(matches(withText(expectedPageFooter)));
 
-        sharedUITestUtils.useGoBackMenuOption(expectedPageFooter);
+        sharedUITestUtils.showContextualMenu(expectedPageFooter);
+        sharedUITestUtils.clickMenuOption("Back");
         //From demo, back should go directly to MainActivity, as there is no playlist menu
         sharedUITestUtils.checkWeAreOnMainActivity();
     }

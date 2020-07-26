@@ -100,6 +100,20 @@ public class SharedMPTestUtils {
         return null;
     }
 
+    //NB: This is not synchronous
+    public static void tryPutInErrorState(AudioPlayerHelper audioPlayerHelper) {
+        try {
+            audioPlayerHelper.close();
+        } catch (IOException e) {
+        }
+
+        MediaPlayerWrapperMultipleFiles innerWrapperr = getInnerPlayer(audioPlayerHelper);
+
+        try {
+            innerWrapperr.prepare();
+        } catch (Exception e) {
+        }
+    }
 
     private static MediaPlayerWrapperMultipleFiles getInnerPlayer(AudioPlayerHelper audioPlayerHelper){
         final String MPLAYER_FIELD_NAME = "_mediaPlayer";

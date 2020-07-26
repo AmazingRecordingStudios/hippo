@@ -129,6 +129,16 @@ public abstract class SafeLoggableMediaPlayer extends LoggableMediaPlayer {
     }
 
     @Override
+    public boolean isPlaying() {
+        if(this.isIdle() || this.isReleased()
+                || this.currentPlayerState == PlayerState.ERROR) {
+            return false;
+        }
+
+        return super.isPlaying();
+    }
+
+    @Override
     public void pause() throws IllegalStateException {
 
         if (this.isPaused()
@@ -168,7 +178,7 @@ public abstract class SafeLoggableMediaPlayer extends LoggableMediaPlayer {
     OnErrorListener onErrorListener = new OnErrorListener() {
         @Override
         public boolean onError(MediaPlayer mp, int what, int extra) {
-
+            setCurrentPlayerState(PlayerState.ERROR);
             Log.e(TAG,"what: " + what
                     + " extra: " + extra + " " + mp.toString());
 

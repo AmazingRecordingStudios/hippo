@@ -517,6 +517,23 @@ public class AudioPlayerHelperTest {
     }
 
     @Test
+    public void callIsPlayingFromIllegalStates() throws IOException {
+
+        AudioPlayerHelper player = getIdleMP();
+        Assert.assertEquals(PlayerState.IDLE,SharedMPTestUtils.getCurrentPlayerState(player));
+        Assert.assertEquals(false,player.isPlaying());
+
+        player.close();
+        Assert.assertEquals(PlayerState.END_RELEASED_UNAVAILABLE,SharedMPTestUtils.getCurrentPlayerState(player));
+        Assert.assertEquals(false,player.isPlaying());
+
+        //Problem, transition to Error state is asynch, via OnErrorListener
+        SharedMPTestUtils.tryPutInErrorState(player);
+        //Assert.assertEquals(PlayerState.ERROR,SharedMPTestUtils.getCurrentPlayerState(player));
+        Assert.assertEquals(false,player.isPlaying());
+    }
+
+    @Test
     public void playAfterStopped() throws IOException {
 
         AssetFileDescriptor singleFile

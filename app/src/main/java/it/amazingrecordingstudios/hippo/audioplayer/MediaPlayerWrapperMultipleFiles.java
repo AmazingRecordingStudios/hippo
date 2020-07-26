@@ -113,6 +113,10 @@ public class MediaPlayerWrapperMultipleFiles
     public void reset() {
         if(!this.isIdle()) {
             super.reset();
+        } else {
+            //per the documentation, a new player isIdle but if reset has not been called
+            //some functionality will not work, like the onError handler
+            super.reset();
         }
 
         this.assetFileDescriptors = null;
