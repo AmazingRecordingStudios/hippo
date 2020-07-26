@@ -1,6 +1,5 @@
 package it.amazingrecordingstudios.hippo.UITests;
 
-import android.app.Activity;
 import android.view.View;
 
 import androidx.test.espresso.Espresso;
@@ -10,9 +9,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import static androidx.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.runner.lifecycle.Stage.RESUMED;
-import androidx.test.runner.lifecycle.ActivityLifecycleMonitor;
-import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
+
+import androidx.test.filters.LargeTest;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -20,8 +18,6 @@ import org.hamcrest.TypeSafeMatcher;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import java.util.Collection;
 
 import it.amazingrecordingstudios.hippo.MainActivity;
 import it.amazingrecordingstudios.hippo.R;
@@ -31,13 +27,10 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.swipeLeft;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static org.hamcrest.Matchers.allOf;
 
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest {
-
-    Activity currentActivity = null;
 
     @Rule
     public ActivityScenarioRule<MainActivity> mainActivityTestRule =
@@ -56,6 +49,7 @@ public class MainActivityTest {
     }
 
     @Test
+    @LargeTest
     public void playthrough() {
         onView(ViewMatchers.withId(R.id.startPlayingBtn)).perform(click());
         checkWeAreOnPlaylistMenu();
@@ -118,6 +112,7 @@ public class MainActivityTest {
     }
 
     @Test
+    @LargeTest
     public void goBackMenuOption() {
         onView(ViewMatchers.withId(R.id.startPlayingBtn)).perform(click());
         checkWeAreOnPlaylistMenu();
@@ -136,6 +131,7 @@ public class MainActivityTest {
     }
 
     @Test
+    @LargeTest
     public void playDemo() {
         onView(withId(R.id.demoBtn)).perform(click());
 
@@ -147,19 +143,6 @@ public class MainActivityTest {
         //From demo, back should go directly to MainActivity, as there is no playlist menu
         checkWeAreOnMainActivity();
     }
-
-    /*
-    private Activity getCurrentActivity() {
-        final Activity[] activity = new Activity[1];
-        onView(isRoot()).check(new ViewAssertion() {
-            @Override
-            public void check(View view, NoMatchingViewException noViewFoundException) {
-                //com.android.internal.policy.DecorContext cannot be cast to android.app.Activity
-                activity[0] = (Activity) view.getContext();
-            }
-        });
-        return activity[0];
-    }*/
 
     public static Matcher<View> withPageNumber(final Matcher<View> matcher,
                                           final int pageNumber) {
@@ -178,21 +161,5 @@ public class MainActivityTest {
                 return matcher.matches(view) && currentPageNumber++ == pageNumber;
             }
         };
-    }
-
-    public Activity getCurrentActivityInstance(){
-        getInstrumentation().runOnMainSync(new Runnable() {
-            public void run() {
-                ActivityLifecycleMonitor activityLifecycleMonitor
-                        = ActivityLifecycleMonitorRegistry.getInstance();
-                Collection<Activity> resumedActivities =
-                        activityLifecycleMonitor.getActivitiesInStage(RESUMED);
-                if (resumedActivities.iterator().hasNext()){
-                    currentActivity = resumedActivities.iterator().next();
-                }
-            }
-        });
-
-        return currentActivity;
     }
 }

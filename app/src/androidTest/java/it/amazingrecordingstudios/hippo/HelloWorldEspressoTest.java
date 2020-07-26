@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
+import androidx.test.filters.Suppress;
 import androidx.test.rule.ActivityTestRule;
 
 import static androidx.test.espresso.Espresso.onView;
@@ -15,7 +16,6 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 @RunWith(AndroidJUnit4.class)
-@LargeTest
 public class HelloWorldEspressoTest {
 
     @Rule
@@ -24,7 +24,9 @@ public class HelloWorldEspressoTest {
 
     //TODO FIXME after each test return to main activity
 
+    @Suppress
     @Test
+    @LargeTest
     public void exampleBasicEspressoTest() {
 
         onView(withId(R.id.demoBtn)).perform(click());

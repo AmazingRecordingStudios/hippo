@@ -8,6 +8,7 @@ import android.media.AudioManager;
 import android.os.Build;
 import android.util.Log;
 
+import androidx.test.filters.LargeTest;
 import androidx.test.filters.Suppress;
 import androidx.test.platform.app.InstrumentationRegistry;
 
@@ -448,6 +449,7 @@ public class AudioPlayerHelperTest {
     }
 
     @Test
+    @LargeTest
     public void playNext() throws IOException {
 
         //FIXME test sometimes failing; inconsistencies in mediaplayer testing
