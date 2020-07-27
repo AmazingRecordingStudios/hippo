@@ -38,7 +38,7 @@ public class CreditsActivityTest {
         // also in a more efficient way (like not doing anything on it)
         // than performing a click
         onData(anything())
-                .inAdapterView(withContentDescription("Credits"))
+                .inAdapterView(withContentDescription("Credits list"))
                 .atPosition(3)
                 .perform(click());
     }
