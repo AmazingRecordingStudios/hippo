@@ -35,8 +35,10 @@ public class AudioPlayerHelperTest {
         assetManager = appContext.getAssets();
     }
 
-    @After@Suppress
+    @After
     public void tearDown() throws Exception {
+        AudioPlayerHelper player = getPreparingMP();
+        player.close();
     }
 
     @Test
