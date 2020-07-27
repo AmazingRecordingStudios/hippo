@@ -3,7 +3,9 @@ package it.amazingrecordingstudios.hippo;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -23,7 +25,22 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (BuildConfig.DEBUG && Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                    .detectNonSdkApiUsage()
+                    .penaltyLog()
+                    .build());
+        }
         super.onCreate(savedInstanceState);
+        //FIXME this result in a call to a greylisted API
+        // Landroid/view/View;->computeFitSystemWindows(Landroid/graphics/Rect;Landroid/graphics/Rect;)Z (greylist, reflection, allowed)
+        // Landroid/view/ViewGroup;->makeOptionalFitsSystemWindows()V (greylist, reflection, allowed)
+        // Landroid/graphics/FontFamily;-><init>()V (greylist, reflection, allowed)
+        // Landroid/graphics/FontFamily;->addFontFromAssetManager(Landroid/content/res/AssetManager;Ljava/lang/String;IZIII[Landroid/graphics/fonts/FontVariationAxis;)Z (greylist, reflection, allowed)
+        // Landroid/graphics/FontFamily;->addFontFromBuffer(Ljava/nio/ByteBuffer;I[Landroid/graphics/fonts/FontVariationAxis;II)Z (greylist, reflection, allowed)
+        // Landroid/graphics/FontFamily;->freeze()Z (greylist, reflection, allowed)
+        // Landroid/graphics/FontFamily;->abortCreation()V (greylist, reflection, allowed)
+        // Landroid/graphics/Typeface;->createFromFamiliesWithDefault([Landroid/graphics/FontFamily;Ljava/lang/String;II)Landroid/graphics/Typeface; (greylist, reflection, allowed)
         setContentView(R.layout.activity_main);
 
         greekMainTitleTV = findViewById(R.id.greekMainTitle);

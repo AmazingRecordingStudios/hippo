@@ -89,6 +89,9 @@ public class QuotePagerActivity extends FragmentActivity {
         this.audioPlayer = new AudioPlayerHelper();
 
         pagerAdapter = new QuotePagerAdapter(this);
+
+        //FIXME this result in a call to a greylisted API
+        // Landroid/view/View;->mAccessibilityDelegate:Landroid/view/View$AccessibilityDelegate; (greylist, reflection, allowed)
         viewPager2.setAdapter(pagerAdapter);
 
         viewPager2PageChangeCallback = new ViewPager2.OnPageChangeCallback() {

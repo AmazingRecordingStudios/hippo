@@ -18,6 +18,8 @@ public class AboutActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //FIXME this result in a call to a greylisted API
+        // Landroid/view/ViewGroup;->makeOptionalFitsSystemWindows()V (greylist, reflection, allowed)
         setContentView(R.layout.activity_about);
 
         this.aboutText = getAboutText();

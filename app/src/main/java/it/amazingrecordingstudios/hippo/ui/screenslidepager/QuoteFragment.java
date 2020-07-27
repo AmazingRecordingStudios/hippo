@@ -540,6 +540,9 @@ public class QuoteFragment extends Fragment {
         popup.setOnMenuItemClickListener(onMenuItemClickListener);
 
         popup.inflate(R.menu.quote_menu);
+
+        //FIXME this result in a call to a greylisted API
+        // Landroid/widget/AbsListView;->mIsChildViewEnabled:Z (greylist, reflection, allowed)
         popup.show();
     }
 
