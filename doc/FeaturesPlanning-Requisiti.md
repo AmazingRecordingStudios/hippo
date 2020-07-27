@@ -30,6 +30,7 @@ Side project, recordings uploader:
 
 Book anthology of Greek quotes
 * grouped by author
+* translation facing pages, Loeb style
 
 Side project main website:
 
