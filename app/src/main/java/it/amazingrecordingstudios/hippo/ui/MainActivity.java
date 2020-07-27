@@ -1,4 +1,4 @@
-package it.amazingrecordingstudios.hippo;
+package it.amazingrecordingstudios.hippo.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import it.amazingrecordingstudios.hippo.BuildConfig;
+import it.amazingrecordingstudios.hippo.R;
 import it.amazingrecordingstudios.hippo.database.AsyncResponse;
 
 public class MainActivity extends AppCompatActivity implements AsyncResponse {

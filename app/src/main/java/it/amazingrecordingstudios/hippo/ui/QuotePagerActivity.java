@@ -1,4 +1,4 @@
-package it.amazingrecordingstudios.hippo;
+package it.amazingrecordingstudios.hippo.ui;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -14,6 +14,7 @@ import android.view.KeyEvent;
 import java.io.IOException;
 import java.util.TreeMap;
 
+import it.amazingrecordingstudios.hippo.R;
 import it.amazingrecordingstudios.hippo.audioplayer.AudioPlayerHelper;
 import it.amazingrecordingstudios.hippo.database.QuotesProvider;
 import it.amazingrecordingstudios.hippo.model.Schermata;

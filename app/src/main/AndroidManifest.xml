@@ -12,17 +12,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name="it.amazingrecordingstudios.hippo.AboutActivity"></activity>
-        <activity android:name="it.amazingrecordingstudios.hippo.CreditsActivity" />
-        <activity android:name="it.amazingrecordingstudios.hippo.PlaylistsActivity" />
-        <activity android:name="it.amazingrecordingstudios.hippo.QuotePagerActivity">
+        <activity android:name="it.amazingrecordingstudios.hippo.ui.AboutActivity"></activity>
+        <activity android:name="it.amazingrecordingstudios.hippo.ui.CreditsActivity" />
+        <activity android:name="it.amazingrecordingstudios.hippo.ui.PlaylistsActivity" />
+        <activity android:name="it.amazingrecordingstudios.hippo.ui.QuotePagerActivity">
             <intent-filter>
                 <action android:name="it.amazingrecordingstudios.hippo.DEMO" />
                 <action android:name="it.amazingrecordingstudios.hippo.PLAY" />
             </intent-filter>
         </activity>
-        <activity android:name="it.amazingrecordingstudios.hippo.QuoteActivity" />
-        <activity android:name="it.amazingrecordingstudios.hippo.MainActivity">
+        <activity android:name="it.amazingrecordingstudios.hippo.ui.QuoteActivity" />
+        <activity android:name="it.amazingrecordingstudios.hippo.ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

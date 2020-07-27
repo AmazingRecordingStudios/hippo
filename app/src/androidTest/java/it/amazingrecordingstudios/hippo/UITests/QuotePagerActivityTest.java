@@ -16,7 +16,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import it.amazingrecordingstudios.hippo.QuotePagerActivity;
+import it.amazingrecordingstudios.hippo.ui.QuotePagerActivity;
 import it.amazingrecordingstudios.hippo.R;
 
 import static androidx.test.espresso.Espresso.onView;

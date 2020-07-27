@@ -1,4 +1,4 @@
-package it.amazingrecordingstudios.hippo;
+package it.amazingrecordingstudios.hippo.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 

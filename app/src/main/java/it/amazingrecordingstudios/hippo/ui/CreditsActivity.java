@@ -1,4 +1,4 @@
-package it.amazingrecordingstudios.hippo;
+package it.amazingrecordingstudios.hippo.ui;
 
 import android.app.ListActivity;
 import android.os.Bundle;
@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import it.amazingrecordingstudios.hippo.Globals;
+import it.amazingrecordingstudios.hippo.R;
 import it.amazingrecordingstudios.hippo.database.QuotesProvider;
 
 public class CreditsActivity extends ListActivity {

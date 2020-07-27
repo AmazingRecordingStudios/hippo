@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            tools:context=".QuoteActivity">
+            tools:context=".ui.QuoteActivity">
 
             <ScrollView
                 android:layout_width="fill_parent"

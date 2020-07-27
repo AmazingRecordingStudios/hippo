@@ -1,4 +1,4 @@
-package it.amazingrecordingstudios.hippo;
+package it.amazingrecordingstudios.hippo.ui;
 
 import android.content.Context;
 import android.view.GestureDetector;

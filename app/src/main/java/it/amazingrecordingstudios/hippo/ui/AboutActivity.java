@@ -1,4 +1,4 @@
-package it.amazingrecordingstudios.hippo;
+package it.amazingrecordingstudios.hippo.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +9,7 @@ import android.text.Layout;
 import android.text.Spanned;
 import android.widget.TextView;
 
+import it.amazingrecordingstudios.hippo.R;
 import it.amazingrecordingstudios.hippo.database.QuotesProvider;
 
 public class AboutActivity extends AppCompatActivity {

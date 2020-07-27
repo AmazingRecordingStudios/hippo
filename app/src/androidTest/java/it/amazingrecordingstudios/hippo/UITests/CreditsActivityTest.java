@@ -10,7 +10,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import it.amazingrecordingstudios.hippo.CreditsActivity;
+import it.amazingrecordingstudios.hippo.ui.CreditsActivity;
 
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.action.ViewActions.click;

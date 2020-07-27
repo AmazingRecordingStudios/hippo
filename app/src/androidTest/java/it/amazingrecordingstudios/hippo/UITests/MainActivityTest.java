@@ -27,7 +27,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 
-import it.amazingrecordingstudios.hippo.MainActivity;
+import it.amazingrecordingstudios.hippo.ui.MainActivity;
 import it.amazingrecordingstudios.hippo.R;
 
 @RunWith(AndroidJUnit4.class)

@@ -18,8 +18,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import it.amazingrecordingstudios.hippo.AboutActivity;
-import it.amazingrecordingstudios.hippo.CreditsActivity;
+import it.amazingrecordingstudios.hippo.ui.AboutActivity;
+import it.amazingrecordingstudios.hippo.ui.CreditsActivity;
 import it.amazingrecordingstudios.hippo.Globals;
 import it.amazingrecordingstudios.hippo.utils.MyHtmlTagHandler;
 import it.amazingrecordingstudios.hippo.R;

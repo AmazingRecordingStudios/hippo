@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:paddingLeft="8dp"
     android:paddingRight="8dp"
-    tools:context=".PlaylistsActivity"
+    tools:context=".ui.PlaylistsActivity"
     >
 
     <TextView android:id="@+id/creditsTitle"
