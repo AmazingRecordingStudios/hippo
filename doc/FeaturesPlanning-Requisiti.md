@@ -11,7 +11,7 @@ Next releases:
 * Add/edit espresso test clicking on each playlist and go back to playlist menu each time
 * check why some activities onCreate call greyed APIs and others don't
 * Update Google Play Feature Graphics with screenshots from pre-launch report
-* Aff get it on Google Play icon on Github readme
+* Add get it on Google Play icon on Github readme
 * options activity?
 ** longplay/autoplay mode (detect event end of play and autoswipe; add loop option in options activity; add play again menu option)
 ** high contrast / dark mode
