@@ -22,12 +22,14 @@ done:
 Side project, recordings uploader:
 
 * Website allowing to upload recordings of quotes readings 
-* website with azure
+* website dev and hosting with azure
 * can choose existing quote (search browse function? by category?) and upload a quote
 * can upload/post a new quote with or without a recording
 * librivox link?
 * site possible names: libri quotes, quote uploader, ..
 
+Book anthology of Greek quotes
+* grouped by author
 
 Side project main website:
 
