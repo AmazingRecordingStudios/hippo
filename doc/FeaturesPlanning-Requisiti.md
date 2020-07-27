@@ -8,8 +8,12 @@ Next releases:
 * Add one Mediaplayer test using Espresso (check play and pause from activity clicks, swipes)
 * Add scroll to bottom for Espresso tests: Playlists menu, Credits
 * Add/edit Espresso test going to end of playlist and using back menu option (issue menu not detected after swipes)
+* Add/edit espresso test clicking on each playlist and go back to playlist menu each time
 * check why some activities onCreate call greyed APIs and others don't
 * options activity?
+** longplay/autoplay mode (detect event end of play and autoswipe; add loop option in options activity; add play again menu option)
+** high contrast / dark mode
+** ..
 
 done:
 * Fix volume too low on Android 10 devices
