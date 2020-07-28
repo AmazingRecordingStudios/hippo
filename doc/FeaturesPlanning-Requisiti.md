@@ -12,9 +12,11 @@ Next releases:
 * check why some activities onCreate call greyed APIs and others don't
 * Update Google Play Feature Graphics with screenshots from pre-launch report
 * Add get it on Google Play icon on Github readme
+* use dynamic feature modules to add modules of quotes recordings on demand https://developer.android.com/guide/app-bundle/dynamic-delivery#customize_delivery
 * options activity?
 ** longplay/autoplay mode (detect event end of play and autoswipe; add loop option in options activity; add play again menu option)
 ** high contrast / dark mode
+** version number info
 ** ..
 
 done:
@@ -30,7 +32,7 @@ Side project, recordings uploader:
 * librivox link?
 * site possible names: libri quotes, quote uploader, ..
 
-Book anthology of Greek quotes
+Book anthology of Greek quotes:
 * grouped by author
 * translation facing pages, Loeb style
 * intended for copy for voiceover studio recording
