@@ -250,6 +250,7 @@ public class AudioPlayerHelperTest {
         } catch (Exception e) {
             Assert.fail("Media player exception when stopping from idle: " + e.toString());
         }
+        //FIXME AssertionError: expected:<STOPPED> but was:<PREPARED>
         Assert.assertEquals(PlayerState.STOPPED,SharedMPTestUtils.getCurrentPlayerState(player));
 
         player = getPausedMP();
