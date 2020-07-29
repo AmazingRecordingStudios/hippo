@@ -18,7 +18,7 @@ Note to current release (v0.5.16-pre-alpha):
 Get it on Google Play https://play.google.com/store/apps/details?id=it.amazingrecordingstudios.hippo
 [<img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
     alt="Get it on Google Play"
-    height="80">](https://play.google.com/store/apps/details?id=it.amazingrecordingstudios.hippo&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1)
+    height="80">](https://play.google.com/store/apps/details?id=it.amazingrecordingstudios.hippo)
 
 Being published on the F-Droid store: https://f-droid.org/it/packages/amazingrecordingstudios.hippo/
 
