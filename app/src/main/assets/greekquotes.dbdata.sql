@@ -300,7 +300,7 @@ INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") V
 INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (43,'ἑκὰς ἀνδρ<CASE>ῶν</CASE> ἀλφηστά<CASE>ων</CASE>','Od.6.8-ekasandron.ogg');
 INSERT INTO "schermate" ("_id","short_quote_id","description","author_ref") VALUES (37,43,'far from men that live by toil','Hom. Od. 6.8');
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (37,1,'far from men that live by toil');
-INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (37,1,'-ων: GEN pl; <BR>ἑκὰς + GEN: "far from";<BR>ἀνδρῶν: "men";<BR>ἀλφηστάων: industrious, enterprising. Originally might have literally meant "one who eats bread", a composite from ἄλφι (flour) and the suffix -ησ-τής, "eater", and by extension meant "one who earns his daily bread, his food", therefore "the worker" and consequently "the active, the industrious"');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (37,1,'-ων: GEN pl; <br/>ἑκὰς + GEN: "far from";<br/>ἀνδρῶν: "men";<br/>ἀλφηστάων: industrious, enterprising. Originally might have literally meant "one who eats bread", a composite from ἄλφι (flour) and the suffix -ησ-τής, "eater", and by extension meant "one who earns his daily bread, his food", therefore "the worker" and consequently "the active, the industrious"');
 
 INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (44,'ἀμφὶ δὲ τεῖχος ἔλασσε πόλει','Od.6.9-anphideteikos.ogg');
 INSERT INTO "schermate" ("_id","full_quote_id","description","author_ref") VALUES (38,44,'The wall','Hom. Od. 6.9');
