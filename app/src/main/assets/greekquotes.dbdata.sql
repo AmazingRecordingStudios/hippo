@@ -2,6 +2,7 @@ INSERT INTO "android_metadata" ("locale") VALUES ('en_US');
 INSERT INTO "translation_languages" ("_id","LanguageName") VALUES (1,'English');
 INSERT INTO "translation_languages" ("_id","LanguageName") VALUES (2,'Italian');
 
+INSERT INTO "credits" ("credit") VALUES ('Librivox, Odyssey book 6 read by Zoe, https://librivox.org/the-odyssey-book-6-by-homer/');
 INSERT INTO "credits" ("credit") VALUES ('Laboratorio di Cultura Digitale, Dipartimento di Lettere e Filosofia, Università di Pisa, che ha ospitato il progetto fino a Gennaio 2020');
 INSERT INTO "credits" ("credit") VALUES ('Wikipedia, List of Greek phrases, https://en.wikipedia.org/wiki/List_of_Greek_phrases');
 INSERT INTO "credits" ("credit") VALUES ('Francese, Christopher. Greek Core Vocabulary. Dickinson College Commentaries (2014). http://dcc.dickinson.edu/greek-core-list');
@@ -13,7 +14,6 @@ INSERT INTO "credits" ("credit") VALUES ('https://www.cornellcollege.edu/classic
 INSERT INTO "credits" ("credit") VALUES ('https://soundcloud.com/archaeologymag/what-ancient-greek-music');
 INSERT INTO "credits" ("credit") VALUES ('https://sites.google.com/site/materialesathenaze/ho-dikaiopolis');
 INSERT INTO "credits" ("credit") VALUES ('http://aliso.pntic.mec.es/agalle17/trabajo_final/cap4.html');
-INSERT INTO "credits" ("credit") VALUES ('https://librivox.org/the-odyssey-book-6-by-homer/');
 INSERT INTO "credits" ("credit") VALUES ('https://www.theanimalspot.com/hippopotamus/');
 INSERT INTO "credits" ("credit") VALUES ('Major, Wilfred E. (2008). It’s Not the Size, It’s the Frequency: The Value of Using a Core Vocabulary in Beginning and Intermediate Greek. CPL Online, 4.1, 1-24.  https://camws.org/cpl/cplonline/files/Majorcplonline.pdf');
 INSERT INTO "credits" ("credit") VALUES ('The Android robot is reproduced or modified from work created and shared by Google and used according to terms described in the Creative Commons 3.0 Attribution License. https://creativecommons.org/licenses/by/3.0/');
