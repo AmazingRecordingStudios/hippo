@@ -66,6 +66,7 @@ public class PlaylistsActivity extends ListActivity {
         for(Playlist currentPlaylist:playlistByRank.values()) {
 
             if(!currentPlaylist.isDisabled()) {
+                // FIXME on older devices (Android 19), this chars are not shown: ϛ ϙ ϡ
                 String playListGreekNumber = Utils.parseGreekNumeral(currentPlaylistNumber);
                 String playlistName = currentPlaylist.getDescription();
 
