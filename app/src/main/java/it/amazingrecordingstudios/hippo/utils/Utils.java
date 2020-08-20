@@ -244,6 +244,9 @@ public class Utils {
 
     public static String parseGreekNumeral(int number) {
 
+        //  actual alphabet: αβγδε   ζηθ ἰκλμνξοπ   ρστυφχψω
+        // numeral alphabet: αβγδε ϛ ζηθ ικλμνξοπ ϙ ρστυφχψω ϡ
+
         //final String greekNumeralsUnitsString = "αβγδεϛζηθ"; // ϛ is the digamma numeral or stigma
         final String greekNumeralsTensString = "ικλμνξοπϙ"; // ϙ is koppa
         final String greekNumeralsHundredsString = "ρστυφχψωϡ"; // ϡ is sampi
