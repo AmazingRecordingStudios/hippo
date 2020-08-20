@@ -27,12 +27,18 @@ public class UtilsUnitTest {
         parseGreekNumeralHelper(-1, null);
         parseGreekNumeralHelper(0, null);
         parseGreekNumeralHelper(10000, null);
+
+        parseGreekNumeralHelper(28, "κη");
+        parseGreekNumeralHelper(750, "ψν");
     }
 
     @Test
     public void parseGreekNumeralOverAThousand() {
         parseGreekNumeralHelper(1000, "͵α");
         parseGreekNumeralHelper(1001, "͵αα");
+
+        parseGreekNumeralHelper(1910, "͵αϡι");
+        parseGreekNumeralHelper(4094, "͵δϙδ");
     }
 
     public void parseGreekNumeralHelper(int number, String expectedParse) {

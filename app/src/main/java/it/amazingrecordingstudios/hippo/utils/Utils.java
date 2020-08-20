@@ -255,8 +255,8 @@ public class Utils {
         char[] greekTensNumerals = greekNumeralsTensString.toCharArray();
         char[] greekHundredsNumerals = greekNumeralsHundredsString.toCharArray();
 
-        //TODO unfortunately this is from those morons of the Byzanthynes, Ancient Greeks actually
-        // used another sign
+        //TODO unfortunately this (aristerí keréa) is from those morons of the Byzanthynes,
+        // Ancient Greeks actually used another sign
         final String THOUSAND_SIGN = "͵";
 
         final int MAX_NUM_CURRENTLY_SUPPORTED = 9999;
