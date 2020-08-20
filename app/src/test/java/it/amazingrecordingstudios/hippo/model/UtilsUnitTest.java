@@ -30,6 +30,10 @@ public class UtilsUnitTest {
 
         parseGreekNumeralHelper(28, "κη");
         parseGreekNumeralHelper(750, "ψν");
+
+        parseGreekNumeralHelper(12, "ιβ");
+        parseGreekNumeralHelper(25, "κε");
+        parseGreekNumeralHelper(15, "ιε");
     }
 
     @Test
