@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 public class UtilsUnitTest {
 
     @Test
-    public void parseGreekNumeral() {
+    public void parseGreekNumeralForGeneralCounting() {
 
         parseGreekNumeralHelper(6, "ϛ");
         parseGreekNumeralHelper(66, "ξϛ");
@@ -37,7 +37,7 @@ public class UtilsUnitTest {
     }
 
     @Test
-    public void parseGreekNumeralOverAThousand() {
+    public void parseGreekNumeralForGeneralCountingOverAThousand() {
         parseGreekNumeralHelper(1000, "͵α");
         parseGreekNumeralHelper(1001, "͵αα");
 
@@ -46,7 +46,20 @@ public class UtilsUnitTest {
     }
 
     public void parseGreekNumeralHelper(int number, String expectedParse) {
-        String parsedInt = Utils.parseGreekNumeral(number);
+        String parsedInt = Utils.parseGreekNumeralForGeneralCounting(number);
+        assertEquals(expectedParse, parsedInt);
+    }
+
+    @Test
+    public void parseGreekNumeralForSectionsOfLiteraryWorks() {
+        parseGreekNumeralHelperForSectionsOfLiteraryWorks(1, "α");
+        parseGreekNumeralHelperForSectionsOfLiteraryWorks(6, "ζ");
+        parseGreekNumeralHelperForSectionsOfLiteraryWorks(10, "κ");
+        // α β γ δ ε ζ η θ ἰ κ λ μ ν ξ ο π ρ σ τ υ φ χ ψ ω
+    }
+
+    public void parseGreekNumeralHelperForSectionsOfLiteraryWorks(int number, String expectedParse) {
+        String parsedInt = Utils.parseGreekNumeralForSectionsOfALiteraryWork(number);
         assertEquals(expectedParse, parsedInt);
     }
 }

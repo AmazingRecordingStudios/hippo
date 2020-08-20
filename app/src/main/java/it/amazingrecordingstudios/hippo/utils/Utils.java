@@ -243,6 +243,22 @@ public class Utils {
     }
 
     public static String parseGreekNumeral(int number) {
+        return parseGreekNumeralForSectionsOfALiteraryWork(number);
+    }
+
+    public static String parseGreekNumeralForSectionsOfALiteraryWork(int number) {
+
+        final String greekNumeralsString = "αβγδεζηθικλμνξοπρστυφχψω";
+        char[] greekNumerals = greekNumeralsString.toCharArray();
+
+        if(number > greekNumerals.length) {
+            return null;
+        }
+
+        return String.valueOf(greekNumerals[number - 1]);
+    }
+
+    public static String parseGreekNumeralForGeneralCounting(int number) {
 
         //  actual alphabet: αβγδε   ζηθ ἰκλμνξοπ   ρστυφχψω
         // numeral alphabet: αβγδε ϛ ζηθ ικλμνξοπ ϙ ρστυφχψω ϡ
