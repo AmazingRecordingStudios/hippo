@@ -26,6 +26,7 @@ import it.amazingrecordingstudios.hippo.R;
 import it.amazingrecordingstudios.hippo.audioplayer.AudioPlayerHelper;
 import it.amazingrecordingstudios.hippo.model.Quote;
 import it.amazingrecordingstudios.hippo.model.Schermata;
+import it.amazingrecordingstudios.hippo.utils.UIUtils;
 import it.amazingrecordingstudios.hippo.utils.Utils;
 
 public class QuoteFragment extends Fragment {
@@ -358,7 +359,7 @@ public class QuoteFragment extends Fragment {
         this.citationTV.setText(screen.getCitation());
         this.translationTV.setText(screen.getTranslation());
         this.eeCTV.setText(screen.getEasterEggComment());
-        Utils.setHtmlText(this.lingNotesTV, screen.getLinguisticNotes());
+        UIUtils.setHtmlText(this.lingNotesTV, screen.getLinguisticNotes());
     }
 
     private void setTextToTitleTV() {
@@ -427,13 +428,13 @@ public class QuoteFragment extends Fragment {
         }
         else {
             String quoteTxt = quote.getQuoteText();
-            Utils.setHtmlText(tv, quoteTxt);
+            UIUtils.setHtmlText(tv, quoteTxt);
         }
     }
 
     private void setWordListTV(TextView tv, Schermata screen) {
 
-        Utils.setHtmlText(tv, screen.getMultilineHtmlWordList());
+        UIUtils.setHtmlText(tv, screen.getMultilineHtmlWordList());
 
         //TODO in other part of code, set playback to list of words
     }
@@ -543,6 +544,11 @@ public class QuoteFragment extends Fragment {
 
         //FIXME this result in a call to a greylisted API
         // Landroid/widget/AbsListView;->mIsChildViewEnabled:Z (greylist, reflection, allowed)
+        //FIXME this also can cause a UI (non crashing) error:
+        // E/WindowManager: android.view.WindowLeaked:
+        // Activity it.amazingrecordingstudios.hippo.ui.QuotePagerActivity has leaked window
+        // android.widget.PopupWindow$PopupDecorView{b439d62 V.E...... R......D 0,0-515,504}
+        // that was originally added here
         popup.show();
     }
 

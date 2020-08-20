@@ -17,6 +17,7 @@ import it.amazingrecordingstudios.hippo.Globals;
 import it.amazingrecordingstudios.hippo.R;
 import it.amazingrecordingstudios.hippo.database.QuotesProvider;
 import it.amazingrecordingstudios.hippo.model.Playlist;
+import it.amazingrecordingstudios.hippo.utils.Utils;
 
 public class PlaylistsActivity extends ListActivity {
 
@@ -65,7 +66,7 @@ public class PlaylistsActivity extends ListActivity {
         for(Playlist currentPlaylist:playlistByRank.values()) {
 
             if(!currentPlaylist.isDisabled()) {
-                String playListGreekNumber = parseGreekNumeral(currentPlaylistNumber);
+                String playListGreekNumber = Utils.parseGreekNumeral(currentPlaylistNumber);
                 String playlistName = currentPlaylist.getDescription();
 
                 Map<String, String> currentPlaylistEntry = new TreeMap<>();
@@ -101,15 +102,4 @@ public class PlaylistsActivity extends ListActivity {
         startActivity(intent);
     }
 
-    static String parseGreekNumeral(int number) {
-
-        final String greekNumeralsString = "αβγδεζηθικλμνξοπρστυφχψω";
-        char[] greekNumerals = greekNumeralsString.toCharArray();
-
-        if(number > greekNumerals.length) {
-            return null;
-        }
-
-        return String.valueOf(greekNumerals[number - 1]);
-    }
 }

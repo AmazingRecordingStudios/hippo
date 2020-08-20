@@ -22,12 +22,6 @@ import it.amazingrecordingstudios.hippo.model.Quote;
 
 public class Utils {
 
-    static MyHtmlTagHandler htmlTagHandler;
-
-    static {
-        htmlTagHandler = new MyHtmlTagHandler();
-    }
-
     public static final String DEFAULT_STRING_SEPARATOR = ",";
     public static final String TAG = "Utils";
 
@@ -215,16 +209,6 @@ public class Utils {
         return valuesArray;
     }
 
-    public static void setHtmlText(TextView tv, String htmlText) {
-        if(Utils.isNullOrEmpty(htmlText)) {
-            Log.d(TAG,"Null html text string passed for text view " + tv.toString());
-        } else {
-            tv.setText(Html.fromHtml(htmlText,
-                    null,
-                    htmlTagHandler));
-        }
-    }
-
     public static AssetFileDescriptor getAssetFileDescriptor (
             String audioFilePath,
             AssetManager assetManager) {
@@ -256,5 +240,50 @@ public class Utils {
         }
 
         return tmpAssetFileDescriptors;
+    }
+
+    public static String parseGreekNumeral(int number) {
+
+        //final String greekNumeralsUnitsString = "αβγδεϛζηθ"; // ϛ is the digamma numeral or stigma
+        final String greekNumeralsTensString = "ικλμνξοπϙ"; // ϙ is koppa
+        final String greekNumeralsHundredsString = "ρστυφχψωϡ"; // ϡ is sampi
+
+        char[] greekUnitsNumerals = {'α', 'β', 'γ', 'δ', 'ε', 'ϛ', 'ζ', 'η', 'θ'}; // ϛ is the digamma numeral or stigma
+        char[] greekTensNumerals = greekNumeralsTensString.toCharArray();
+        char[] greekHundredsNumerals = greekNumeralsHundredsString.toCharArray();
+
+        final int MAX_NUM_CURRENTLY_SUPPORTED = 999;
+        final int MIN_NUM_CURRENTLY_SUPPORTED = 1;
+
+        if(number > MAX_NUM_CURRENTLY_SUPPORTED
+                || number < MIN_NUM_CURRENTLY_SUPPORTED) {
+            return null;
+        }
+
+        String charForUnits = "";
+        String charForTens = "";
+        String charForHundreds = "";
+
+        int units = number % 10;
+        if(units != 0) {
+            charForUnits = Character.toString(greekUnitsNumerals[units - 1]);
+        }
+
+        if(number >= 10) {
+
+            int tens = (number/10) % 10;
+            if(tens != 0) {
+                charForTens = Character.toString(greekTensNumerals[tens - 1]);
+            }
+
+            if(number >= 100) {
+                int hundreds = (number/100) % 10;
+                if(hundreds != 0) {
+                    charForHundreds = Character.toString(greekHundredsNumerals[hundreds - 1]);
+                }
+            }
+        }
+
+        return charForHundreds + charForTens + charForUnits;
     }
 }
