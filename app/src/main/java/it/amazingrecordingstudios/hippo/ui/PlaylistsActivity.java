@@ -17,6 +17,7 @@ import it.amazingrecordingstudios.hippo.Globals;
 import it.amazingrecordingstudios.hippo.R;
 import it.amazingrecordingstudios.hippo.database.QuotesProvider;
 import it.amazingrecordingstudios.hippo.model.Playlist;
+import it.amazingrecordingstudios.hippo.utils.UIUtils;
 import it.amazingrecordingstudios.hippo.utils.Utils;
 
 public class PlaylistsActivity extends ListActivity {
@@ -66,8 +67,8 @@ public class PlaylistsActivity extends ListActivity {
         for(Playlist currentPlaylist:playlistByRank.values()) {
 
             if(!currentPlaylist.isDisabled()) {
-                // FIXME on older devices (Android 19), this chars are not shown: ϛ ϙ ϡ
                 String playListGreekNumber = Utils.parseGreekNumeral(currentPlaylistNumber);
+                playListGreekNumber = UIUtils.patchOlderGreekCharsOnAndroid19(playListGreekNumber);
                 String playlistName = currentPlaylist.getDescription();
 
                 Map<String, String> currentPlaylistEntry = new TreeMap<>();
