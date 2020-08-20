@@ -6,8 +6,8 @@ INSERT INTO "credits" ("credit") VALUES ('Librivox, Odyssey book 6 read by Zoe, 
 INSERT INTO "credits" ("credit") VALUES ('Laboratorio di Cultura Digitale, Dipartimento di Lettere e Filosofia, Università di Pisa, che ha ospitato il progetto fino a Gennaio 2020');
 INSERT INTO "credits" ("credit") VALUES ('Wikipedia, List of Greek phrases, https://en.wikipedia.org/wiki/List_of_Greek_phrases');
 INSERT INTO "credits" ("credit") VALUES ('Francese, Christopher. Greek Core Vocabulary. Dickinson College Commentaries (2014). http://dcc.dickinson.edu/greek-core-list');
-INSERT INTO "credits" ("credit") VALUES ('Revithiadou, A. (2018) Ancient Greek pitch accent');
 INSERT INTO "credits" ("credit") VALUES ('Poesia laina, testi greci interattivi http://www.poesialatina.it/_ns/Greek/tt2/p/Elenco.html');
+INSERT INTO "credits" ("credit") VALUES ('Revithiadou, A. (2018) Ancient Greek pitch accent');
 INSERT INTO "credits" ("credit") VALUES ('http://homermultitext.blogspot.com/2013/06/iliad-8-scholia-on-mythological.html');
 INSERT INTO "credits" ("credit") VALUES ('https://latinygriegojanda.files.wordpress.com/2012/06/orfeo-y-euridice.pdf');
 INSERT INTO "credits" ("credit") VALUES ('https://www.cornellcollege.edu/classical_studies/ariadne/audio/index.shtml');
