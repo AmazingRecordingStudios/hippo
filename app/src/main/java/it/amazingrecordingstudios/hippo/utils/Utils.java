@@ -255,7 +255,11 @@ public class Utils {
         char[] greekTensNumerals = greekNumeralsTensString.toCharArray();
         char[] greekHundredsNumerals = greekNumeralsHundredsString.toCharArray();
 
-        final int MAX_NUM_CURRENTLY_SUPPORTED = 999;
+        //TODO unfortunately this is from those morons of the Byzanthynes, Ancient Greeks actually
+        // used another sign
+        final String THOUSAND_SIGN = "͵";
+
+        final int MAX_NUM_CURRENTLY_SUPPORTED = 9999;
         final int MIN_NUM_CURRENTLY_SUPPORTED = 1;
 
         if(number > MAX_NUM_CURRENTLY_SUPPORTED
@@ -266,6 +270,7 @@ public class Utils {
         String charForUnits = "";
         String charForTens = "";
         String charForHundreds = "";
+        String charForThousands = "";
 
         int units = number % 10;
         if(units != 0) {
@@ -284,9 +289,16 @@ public class Utils {
                 if(hundreds != 0) {
                     charForHundreds = Character.toString(greekHundredsNumerals[hundreds - 1]);
                 }
+
+                if(number >= 1000) {
+                    int thousands = (number/1000) % 10;
+                    if(thousands != 0) {
+                        charForThousands = THOUSAND_SIGN + Character.toString(greekUnitsNumerals[thousands - 1]);
+                    }
+                }
             }
         }
 
-        return charForHundreds + charForTens + charForUnits;
+        return charForThousands + charForHundreds + charForTens + charForUnits;
     }
 }

@@ -26,7 +26,13 @@ public class UtilsUnitTest {
 
         parseGreekNumeralHelper(-1, null);
         parseGreekNumeralHelper(0, null);
-        parseGreekNumeralHelper(1000, null);
+        parseGreekNumeralHelper(10000, null);
+    }
+
+    @Test
+    public void parseGreekNumeralOverAThousand() {
+        parseGreekNumeralHelper(1000, "͵α");
+        parseGreekNumeralHelper(1001, "͵αα");
     }
 
     public void parseGreekNumeralHelper(int number, String expectedParse) {
